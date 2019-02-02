@@ -1,12 +1,12 @@
 import pyglet
 
-fps_display = None
+class Render:
 
-def init(win):
-    global fps_display
-    fps_display = pyglet.window.FPSDisplay(win)
+    def __init__(self, win):
+        self.win = win
+        self.fps_display = pyglet.window.FPSDisplay(win)
 
-def on_draw(win):
-    win.clear()
-    fps_display.draw()
+    def on_draw(self):
+        self.win.clear()
+        self.fps_display.draw()
 

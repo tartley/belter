@@ -1,7 +1,7 @@
-from functools import partial
-from belter import render, window, world
-
 import pyglet
+
+from belter import window, world
+from belter.render import Render
 
 # TODO tests which run with -O off, all warnings on, for max debug
 # TODO always use -O when running application
@@ -10,9 +10,9 @@ import pyglet
 def main():
     win = window.create()
     pyglet.clock.schedule(world.update)
-    win.set_handler('on_draw', lambda: render.on_draw(win))
-    render.init(win)
-    window.main_loop(win)
+    render = Render(win)
+    win.set_handler('on_draw', render.on_draw)
+    window.main_loop()
 
 if __name__ == "__main__":
     main()

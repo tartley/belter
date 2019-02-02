@@ -1,4 +1,4 @@
 
-def update(dt):
+def update(_):
     pass
 
