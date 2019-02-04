@@ -8,5 +8,7 @@ def create():
         caption="Belter", fullscreen=False, vsync=False
     )
 
-def main_loop():
+def main_loop(world):
+    pyglet.clock.schedule(world.update)
     pyglet.app.run()
+

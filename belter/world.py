@@ -1,4 +1,6 @@
 
-def update(_):
-    pass
+class World:
+
+    def update(self, _):
+        pass
 
