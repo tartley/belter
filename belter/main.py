@@ -10,7 +10,6 @@ def main():
     world = World()
     win = window.create()
     render = Render(win)
-    win.set_handler('on_draw', render.on_draw)
     window.main_loop(world)
 
 if __name__ == "__main__":
