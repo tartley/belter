@@ -9,7 +9,7 @@ from belter.world import World
 def main():
     world = World()
     window = Window()
-    window.create()
+    window.create("Belter")
     render = Render(window)
     window.set_on_draw(render.on_draw)
     window.main_loop(world)

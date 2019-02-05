@@ -1,5 +1,3 @@
-import pyglet
-
 class Render:
 
     def __init__(self, window):
