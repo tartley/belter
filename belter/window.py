@@ -40,7 +40,6 @@ class Window:
         if symbol in KEYS:
             KEYS[symbol](self)
             return EVENT_HANDLED
-        return None
 
     def get_fps_display(self):
         return pyglet.window.FPSDisplay(self.win)
