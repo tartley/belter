@@ -11,3 +11,6 @@ install-deps:
 lint:
 	flake8 belter
 
+test:
+	pytest belter
+

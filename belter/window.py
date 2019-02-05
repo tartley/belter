@@ -8,7 +8,11 @@ from pyglet.event import EVENT_HANDLED
 class Window:
 
     def __init__(self):
+        # The pyglet Window instance
         self.win = None
+        self.keys = {
+            key.F10: self.toggle_fullscreen,
+        }
 
     def create(self, title):
         self.win = pyglet.window.Window(
@@ -37,8 +41,8 @@ class Window:
             self.win.set_fullscreen(screen=self._get_next_screen())
 
     def on_key_press(self, symbol, _):
-        if symbol in KEYS:
-            KEYS[symbol](self)
+        if symbol in self.keys:
+            self.keys[symbol]()
             return EVENT_HANDLED
 
     def get_fps_display(self):
@@ -53,8 +57,4 @@ class Window:
     def main_loop(self, world):
         pyglet.clock.schedule(world.update)
         pyglet.app.run()
-
-KEYS = {
-    key.F10: Window.toggle_fullscreen,
-}
 
