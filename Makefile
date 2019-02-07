@@ -1,18 +1,19 @@
 
 ve=~/.virtualenvs/belter
+python=${ve}/bin/python
 
 virtualenv:
-	python3.7 -m venv --clear ~/.virtualenvs/belter
+	python3.7 -m venv --clear ${ve}
 
 install-deps:
-	. ${ve}/bin/activate && pip install -U pip
-	. ${ve}/bin/activate && pip install -Ur requirements-dev.txt
+	${python} -m pip install -U pip
+	${python} -m pip install -Ur requirements-dev.txt
 
 lint:
-	flake8 belter
+	${python} -m flake8 belter
 
 unit:
-	pytest belter
+	${python} -m pytest
 
 test: lint unit
 
