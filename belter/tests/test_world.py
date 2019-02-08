@@ -1,4 +1,4 @@
-from belter.world import World
+from ..world import World
 
 def test_add_items():
     world = World()

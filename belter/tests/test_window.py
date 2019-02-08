@@ -4,7 +4,7 @@ from pyglet.window import key
 from pyglet.event import EVENT_HANDLED
 import pytest
 
-from belter.window import Window
+from ..window import Window
 
 def test_constructor():
     window = Window()

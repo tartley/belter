@@ -1,7 +1,7 @@
-from belter import level
-from belter.render import Render
-from belter.window import Window
-from belter.world import World
+from . import level
+from .render import Render
+from .window import Window
+from .world import World
 
 def main():
     world = World()
