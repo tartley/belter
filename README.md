@@ -8,8 +8,6 @@ F10 to toggle windowed/fullscreen, and cycle through available monitors.
 
 ## TODO
 
-* explicit relative imports
-* make test should fail if either lint or unittest fails
 * tests should run with -O off, all warnings on
 * application should always set -O. 
   How to stop this undoing the tests "-O off"?
