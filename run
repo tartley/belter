@@ -1,3 +1,11 @@
-#!/usr/bin/env bash
-python -c "from belter.main import main; main()"
+#!/usr/bin/env python
+
+# Runs the game. Usage:
+#
+#   ./run           # debug mode, with OpenGL error checking
+#
+#   python -O run   # debug off, significantly faster.
+
+from belter.main import main
+main()
 
