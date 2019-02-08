@@ -1,13 +1,19 @@
-
 ve=~/.virtualenvs/belter
 python=${ve}/bin/python
+packages=~/.cache/pip/packages
 
 virtualenv:
 	python3.7 -m venv --clear ${ve}
-
-install-deps:
 	${python} -m pip install -U pip
-	${python} -m pip install -Ur requirements-dev.txt
+
+download:
+	pip download --destination-directory ${packages} -r requirements/dev.txt
+	pip wheel --wheel-dir ${packages} -r requirements/dev.txt
+
+install:
+	${python} -m pip install --no-index --find-links=${packages} -r requirements/dev.txt
+
+setup: virtualenv download install
 
 lint: SHELL := /bin/bash
 lint:
@@ -20,5 +26,5 @@ test: lint unit
 
 .SILENT:
 
-.PHONY: virtualenv install-deps lint unit test
+.PHONY: virtualenv install lint unit test
 

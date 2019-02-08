@@ -1,4 +1,4 @@
--r requirements.txt
+-r ./main.txt
 colout-fix==0.6.1
 flake8==3.7.4
 pytest==4.2.0
