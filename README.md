@@ -8,10 +8,16 @@ F10 to toggle windowed/fullscreen, and cycle through available monitors.
 
 ## TODO
 
-* tests should run with -O off, all warnings on
-* application should always set -O. 
-  How to stop this undoing the tests "-O off"?
-  Is it just that the app turns it on in 'main()',
-  and no unit tests call main()?
-  What if/when we add an end-to-end test? A: Worry about that then.
+* A ship has a body which describes a triangle
+* When added to the world, the ship's body is converted into a Glyph,
+  which is sent to gfx card (vbo? vao?) and id is added to the render
+  collection.
+* In on_draw, we draw all the glyphs
+* draw glyphs in correct position
+* draw glyphs in correct orientation
+* bodies may consist of polygons, which are tessellated into triangles
+* bodies are also added to pymunk
+* world.update calls pymunk.step
+* results of pymunk.step are used for render positions and orientations
+* bodies are rendered as an outline, with a black interior
 
