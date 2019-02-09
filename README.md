@@ -8,10 +8,8 @@ F10 to toggle windowed/fullscreen, and cycle through available monitors.
 
 ## TODO
 
-* tests should run with -O off, all warnings on
-* application should always set -O. 
-  How to stop this undoing the tests "-O off"?
-  Is it just that the app turns it on in 'main()',
-  and no unit tests call main()?
-  What if/when we add an end-to-end test? A: Worry about that then.
+* run currently doesn't work if the virtualenv isn't active.
+  If it were a bash script again, it could invoke the ve's python.
+  It ought to allow the passing of -O.
+* pip-tools to pin subdeps
 
