@@ -20,4 +20,8 @@ F10 to toggle windowed/fullscreen, and cycle through available monitors.
 * world.update calls pymunk.step
 * results of pymunk.step are used for render positions and orientations
 * bodies are rendered as an outline, with a black interior
+* run currently doesn't work if the virtualenv isn't active.
+  If it were a bash script again, it could invoke the ve's python.
+  It ought to allow the passing of -O.
+* pip-tools to pin subdeps
 
