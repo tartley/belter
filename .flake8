@@ -5,5 +5,8 @@ ignore =
     W391 # blank line at end of file
 exclude =
     .git
+    .pytest_cache
     __pycache__
+    requirements
+    tags
 
