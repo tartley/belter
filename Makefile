@@ -5,6 +5,8 @@ packages=~/.cache/pip/packages
 
 virtualenv:
 	python3.7 -m venv --clear ${ve}
+	# enable virtualenvwrapper 'workon'
+	echo $(realpath .) >${ve}/.project
 	${python} -m pip install -U pip
 
 download:
@@ -13,6 +15,8 @@ download:
 
 install:
 	${python} -m pip install --no-index --find-links=${packages} -r requirements/dev.txt
+
+repopulate: virtualenv install
 
 setup: virtualenv download install
 
@@ -27,5 +31,5 @@ test: lint unit
 
 .SILENT:
 
-.PHONY: virtualenv install lint unit test
+.PHONY: virtualenv download install repopulate setup lint unit test
 

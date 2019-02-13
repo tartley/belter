@@ -9,6 +9,8 @@ F10 to toggle windowed/fullscreen, and cycle through available monitors.
 ## TODO
 
 * A ship has a body which describes a triangle
+  Use py2d!
+
 * When added to the world, the ship's body is converted into a Glyph,
   which is sent to gfx card (vbo? vao?) and id is added to the render
   collection.
