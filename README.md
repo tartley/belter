@@ -8,6 +8,7 @@ F10 to toggle windowed/fullscreen, and cycle through available monitors.
 
 ## TODO
 
+* `pip install -U pip` should be separate step, to make sure it gets done before all else.
 * A ship has a body which describes a triangle
 * travis builds
 * readme build badge
