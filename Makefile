@@ -24,6 +24,7 @@ download:
 	# Download packages to local cache.
 	${pip} download --destination-directory ${packages} -r requirements/dev.txt
 	# Convert into wheels if required.
+	${python} -m pip install -U wheel
 	${pip} wheel --wheel-dir ${packages} -r requirements/dev.txt
 
 install:
