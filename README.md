@@ -22,9 +22,6 @@ That's all that works right now.
 
 ## TODO
 
-* pip-tools or manual steps to pin subdeps
-* `pip install -U pip` should be separate step, to make sure it gets done
-  before all else.
 * 'run' should be a bash script again, and should work regardless of whether
   virtualenv is active or not. Fix "to run" docs above. Should it create
   virtualenv automatically?
