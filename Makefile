@@ -1,6 +1,8 @@
 ve=~/.virtualenvs/belter
-python=${ve}/bin/python
-activate=${ve}/bin/activate
+bin=${ve}/bin
+python=${bin}/python
+activate=${bin}/activate
+pip=${bin}/pip
 packages=~/.cache/pip/packages
 
 virtualenv:
@@ -9,16 +11,23 @@ virtualenv:
 	echo $(realpath .) >${ve}/.project
 	${python} -m pip install -U pip
 
+freeze:
+	# ${pip} install -Ur requirements/dev.in
+	chmod u+w requirements/dev.txt
+	/bin/echo -e "# Generated file do not edit, see 'Makefile:freeze'\n" > requirements/dev.txt
+	${pip} freeze >> requirements/dev.txt
+	chmod a-w requirements/dev.txt
+
 download:
-	pip download --destination-directory ${packages} -r requirements/dev.txt
-	pip wheel --wheel-dir ${packages} -r requirements/dev.txt
+	${pip} download --destination-directory ${packages} -r requirements/dev.txt
+	${pip} wheel --wheel-dir ${packages} -r requirements/dev.txt
 
 install:
 	${python} -m pip install --no-index --find-links=${packages} -r requirements/dev.txt
 
 repopulate: virtualenv install
 
-setup: virtualenv download install
+setup: virtualenv freeze download install
 
 lint: SHELL := /bin/bash
 lint:

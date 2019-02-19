@@ -1,0 +1,3 @@
+pyglet~=1.4.0b1
+git+git://github.com/sseemayer/Py2D.git#egg=Py2D
+
