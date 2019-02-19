@@ -1,6 +1,6 @@
 -r ./main.in
-colout-fix~=0.6.1
-flake8~=3.7.4
-flake8-colors~=0.1.6
-pytest~=4.2.0
+colout-fix
+flake8
+flake8-colors
+pytest
 
