@@ -35,9 +35,8 @@ setup: virtualenv freeze download install
 
 repopulate: virtualenv install
 
-lint: SHELL := /bin/bash
 lint:
-	. ${activate} ; flake8 belter | colout '^([^:]+):([0-9]+):([0-9]+): ([^ ]+)' cyan,cyan,white,red normal,normal,dim ; ! (( $${PIPESTATUS[0]} ))
+	. ${activate} && flake8 belter
 
 unit:
 	${python} -m pytest -q --color=yes
