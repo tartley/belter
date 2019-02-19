@@ -63,17 +63,32 @@ That's all that works right now.
 
 ## Gameplay
 
-Main engine reverse direction after landing on an asteroid, so you can moved it
-around:
+### Goals
+
+Put high value asteroids into the fab.
+* how to discern high value?
+  * reuse "Asteroids" background tones as proximity guage?
+
+### Landing / Docking
+
+Conventional landing on the tail-fins:
 
     ____A____
 
-No: Simpler, land on (or dock with) things nose-first.
+But this means we can't use main engine for thrusting against the thing
+we've landed on / docked with.
+
+One solution is, after landing, the whole ship (or just its engines?)
+gimbal around 180 degrees on the landing gear after. Then the main engines are
+pointing at the sky.
+
+But it seems simpler, both gamedev wise and in real life, in a low grav
+environment, to land on (or dock with) things nose-first:
 
     ____V____
 
-
-The visual could be improved by unfolding landing gear, which is cool:
+This looks a bit top-heavy, and weak at the point of contact. So thicken it
+up at the bottom by unfolding landing gear. Which is cool anyhow:
 
     ____X____
 
