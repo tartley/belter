@@ -21,6 +21,15 @@ freeze:
 	/bin/echo -e "# Generated file do not edit, see 'Makefile:freeze'\n" > requirements/dev.txt
 	${pip} freeze >> requirements/dev.txt
 	chmod a-w requirements/dev.txt
+	#
+	# This step is buggy, in that for packages specified as a git repo,
+	# it puts the setup.py's 'version' param into requirements/dev.txt.
+	# It should instead preserve the git repo url.
+	# So after running 'freeze', manually repair these in the output. :-(
+	echo ""
+	echo "Now restore git repo urls in requirements/dev.txt"
+	echo " * py2d"
+	echo " * colout"
 
 download:
 	# Download packages to local cache.

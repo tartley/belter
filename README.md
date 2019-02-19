@@ -38,7 +38,7 @@ That's all that works right now.
 
 ## TODO
 
-* reqs.txt: git+git://github.com/sseemayer/Py2D.git#egg=Py2D
+* perhaps order should be: virtualenv, download, install, freeze ?
 * A ship has a body which describes a triangle
 * When added to the world, the ship's body is converted into a Glyph, which is
   sent to gfx card (vbo? vao?) and id is added to the render collection.
@@ -62,14 +62,6 @@ That's all that works right now.
 * executable
 * github release
 * e2e test of building executable and running it in self-test mode
-
-* Install colout from origin using pip's git syntax.
-  Hmmm, doesn't work, 
-     Building wheel for colout (setup.py) ... error
-      Complete output from command /home/jhartley/.virtualenvs/belter/bin/python -u -c "import setuptools, tokenize;__file__='/tmp/pip-wheel-v8xofsj7/colout/setup.py';f=getattr(tokenize, 'open', open)(__file__);code=f.read().replace('\r\n', '\n');f.close();exec(compile(code, __file__, 'exec'))" bdist_wheel -d /tmp/pip-wheel-ualbvomb:
-      usage: -c [global_opts] cmd1 [cmd1_opts] [cmd2 [cmd2_opts] ...]
-        ...
-      error: invalid command 'bdist_wheel'
 
 ## Gameplay
 
