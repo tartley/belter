@@ -9,7 +9,6 @@ For now, is only runnable from source (see TODO item to create executable).
 Create and populate virtualenv:
 
     make setup
-
     ./run
 
 ## Instructions
@@ -20,9 +19,6 @@ That's all that works right now.
 
 ## TODO
 
-* 'run' should be a bash script again, and should work regardless of whether
-  virtualenv is active or not. Fix "to run" docs above. Should it create
-  virtualenv automatically?
 * Travis. put badge in readme.
 * screenshot in readme
 * A ship has a body which describes a triangle
