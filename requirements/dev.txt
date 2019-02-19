@@ -6,6 +6,7 @@ Babel==2.6.0
 colout-fix==0.6.1
 entrypoints==0.3
 flake8==3.7.6
+flake8-colors==0.1.6
 future==0.17.1
 mccabe==0.6.1
 more-itertools==6.0.0

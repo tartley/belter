@@ -1,7 +1,6 @@
 ve=~/.virtualenvs/belter
 bin=${ve}/bin
 python=${bin}/python
-activate=${bin}/activate
 pip=${bin}/pip
 packages=~/.cache/pip/packages
 
@@ -36,7 +35,7 @@ setup: virtualenv freeze download install
 repopulate: virtualenv install
 
 lint:
-	. ${activate} && flake8 belter
+	${python} -m flake8 belter
 
 unit:
 	${python} -m pytest -q --color=yes

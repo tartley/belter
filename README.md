@@ -38,7 +38,6 @@ That's all that works right now.
 
 ## TODO
 
-* Add $@ to lint, unit. Can this work in makefile?
 * reqs.txt: git+git://github.com/sseemayer/Py2D.git#egg=Py2D
 * A ship has a body which describes a triangle
 * When added to the world, the ship's body is converted into a Glyph, which is

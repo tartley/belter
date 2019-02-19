@@ -1,12 +1,17 @@
 [flake8]
+
 ignore =
     E302 # expected 2 blank lines
     E305 # expected 2 blank lines after class
     W391 # blank line at end of file
+
 exclude =
     .git
     .pytest_cache
     __pycache__
     requirements
     tags
+
+# flake8-colors
+format = ${cyan}%(path)s${reset}:${yellow_bold}%(row)d${reset}:${white}%(col)d${reset}: ${red_bold}%(code)s${reset} %(text)s
 
