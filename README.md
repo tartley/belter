@@ -6,13 +6,11 @@ A videogame with 2D vector graphics, reminiscent of Asteroids.
 
 For now, is only runnable from source (see TODO item to create executable).
 
-To create and populate virtualenv:
+Create and populate virtualenv:
 
     make setup
 
-Run 'belter' using the 'python' in our virtualenv:
-
-    ~/.virtualenvs/belter/bin/python run
+    ./run
 
 ## Instructions
 

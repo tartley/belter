@@ -1,11 +1,11 @@
-#!/usr/bin/env python3
+#!/usr/bin/env bash
 
 # Runs the game. Usage:
 #
-#   ./run           # debug mode, with OpenGL error checking
-#
-#   python -O run   # debug off, significantly faster.
+#   ./run       # debug mode, with OpenGL error checking
+#   ./run -O    # debug off, significantly faster.
 
-from belter.main import main
-main()
+ve="$HOME/.virtualenvs/belter"
+python="${ve}/bin/python"
+${python} $@ -c "from belter.main import main ; main()"
 
