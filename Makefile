@@ -13,9 +13,18 @@ virtualenv:
 		${python} -m pip install -U pip ; \
 	fi
 
+download:
+	# Download packages to local cache.
+	yes w | ${pip} download --destination-directory ${packages} -r requirements/dev.in
+	# Convert into wheels if required.
+	${python} -m pip install -U wheel
+	${pip} wheel --wheel-dir ${packages} -r requirements/dev.in
+
+upgrade:
+	# Install updated wheels from local cache.
+	${python} -m pip install --no-index --find-links=${packages} -r requirements/dev.in
+
 freeze:
-	# Read latest requirements/*.in files
-	${pip} install -Ur requirements/dev.in
 	# Generate updated requirements/dev.txt file.
 	chmod u+w requirements/dev.txt
 	/bin/echo -e "# Generated file do not edit, see 'Makefile:freeze'\n" > requirements/dev.txt
@@ -27,19 +36,15 @@ freeze:
 	# It should instead preserve the git repo url.
 	# So after running 'freeze', manually repair these in the output. :-(
 	echo ""
+	git diff -U0 requirements/dev.txt
+	echo ""
 	echo "Now restore git repo urls in requirements/dev.txt"
 	echo " * py2d"
 	echo " * colout"
-
-download:
-	# Download packages to local cache.
-	${pip} download --destination-directory ${packages} -r requirements/dev.txt
-	# Convert into wheels if required.
-	${python} -m pip install -U wheel
-	${pip} wheel --wheel-dir ${packages} -r requirements/dev.txt
+	echo ""
 
 install:
-	# Install wheels from local cache.
+	# Install pinned wheels from local cache.
 	${python} -m pip install --no-index --find-links=${packages} -r requirements/dev.txt
 
 setup: virtualenv freeze download install
