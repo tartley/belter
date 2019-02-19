@@ -2,8 +2,10 @@
 
 # Runs the game. Usage:
 #
-#   ./run       # debug mode, with OpenGL error checking
-#   ./run -O    # debug off, significantly faster.
+#   ./run [python flags]  # such as '-O', debug off, significantly faster.
+
+# exit on error
+set -e
 
 ve="$HOME/.virtualenvs/belter"
 python="${ve}/bin/python"

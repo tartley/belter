@@ -2,13 +2,32 @@
 
 A videogame with 2D vector graphics, reminiscent of Asteroids.
 
+## Status
+
+Just started. A blank window.
+
+## Prerequisites
+
+For now, prerequisites must be manually installed.
+
+Debian/Ubuntu:
+
+    sudo apt-get install -y freeglut3-dev
+
+Fedora/CentOS/RedHat:
+
+    sudo yum install freeglut-devel
+
 ## To run
 
-For now, is only runnable from source (see TODO item to create executable).
+For now, is only runnable from source.
 
 Create and populate virtualenv:
 
     make setup
+
+Then run with:
+
     ./run
 
 ## Instructions
@@ -19,17 +38,16 @@ That's all that works right now.
 
 ## TODO
 
-* Travis. put badge in readme.
-* screenshot in readme
+* Add $@ to lint, unit. Can this work in makefile?
+* reqs.txt: git+git://github.com/sseemayer/Py2D.git#egg=Py2D
 * A ship has a body which describes a triangle
-* travis builds
-* readme build badge
 * When added to the world, the ship's body is converted into a Glyph, which is
   sent to gfx card (vbo? vao?) and id is added to the render collection.
 * In on_draw, we draw all the glyphs
 * draw glyphs in correct position
 * draw glyphs in correct orientation
 * bodies may consist of polygons, which are tessellated into triangles
+* screenshot in readme
 * produce an linux executable
 * make a github release
 * ask someone to download and double click
@@ -42,6 +60,9 @@ That's all that works right now.
 * bodies are rendered as an outline, with a black interior
 * keys to control ship
 * copy stuff back into project template
+* executable
+* github release
+* e2e test of building executable and running it in self-test mode
 
 * Install colout from origin using pip's git syntax.
   Hmmm, doesn't work, 
