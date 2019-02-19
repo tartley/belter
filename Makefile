@@ -45,5 +45,5 @@ test: lint unit
 
 .SILENT:
 
-.PHONY: virtualenv download install repopulate setup lint unit test
+.PHONY: virtualenv freeze download install setup repopulate lint unit test
 
