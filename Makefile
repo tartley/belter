@@ -5,11 +5,13 @@ pip=${bin}/pip
 packages=~/.cache/pip/packages
 
 virtualenv:
-	# Create an empty virtualenv
-	python3.7 -m venv --clear ${ve}
-	# enable virtualenvwrapper 'workon'
-	echo $(realpath .) >${ve}/.project
-	${python} -m pip install -U pip
+	if [ -n "${VIRTUAL_ENV}" ]; then \
+		echo "deactivate virtualenv first"; \
+	else \
+		python3.7 -m venv --clear ${ve} ; \
+		echo $(realpath .) >${ve}/.project ; \
+		${python} -m pip install -U pip ; \
+	fi
 
 freeze:
 	# Read latest requirements/*.in files
