@@ -22,6 +22,7 @@ That's all that works right now.
 
 ## TODO
 
+* install colout from origin using pip's git syntax
 * install py2d from origin now that my PR is merged
 * 'run' should be a bash script again, and should work regardless of whether
   virtualenv is active or not. Fix "to run" docs above. Should it create

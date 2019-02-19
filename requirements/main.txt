@@ -1,3 +1,3 @@
 pyglet==1.4.0b1
-git+git://github.com/tartley/Py2D.git@fix-pip-install#egg=Py2D
+git+git://github.com/sseemayer/Py2D.git@5a6599bfeb52126f9593d537f40d973e3959ae4c#egg=Py2D
 
