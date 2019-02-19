@@ -32,7 +32,7 @@ install:
 
 repopulate: virtualenv install
 
-setup: virtualenv download install
+setup: virtualenv freeze download install
 
 lint: SHELL := /bin/bash
 lint:
