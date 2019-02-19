@@ -22,17 +22,18 @@ freeze:
 	chmod a-w requirements/dev.txt
 
 download:
-	# Download packages to local cache, generate wheels if required.
+	# Download packages to local cache.
 	${pip} download --destination-directory ${packages} -r requirements/dev.txt
+	# Convert into wheels if required.
 	${pip} wheel --wheel-dir ${packages} -r requirements/dev.txt
 
 install:
 	# Install wheels from local cache.
 	${python} -m pip install --no-index --find-links=${packages} -r requirements/dev.txt
 
-repopulate: virtualenv install
-
 setup: virtualenv freeze download install
+
+repopulate: virtualenv install
 
 lint: SHELL := /bin/bash
 lint:
