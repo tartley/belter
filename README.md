@@ -56,6 +56,7 @@ That's all that works right now.
 * starfield v1
 * bodies are rendered as an outline, with a black interior
 * keys to control ship
+* self documenting makefile
 * copy stuff back into project template
 * executable
 * github release
@@ -65,9 +66,22 @@ That's all that works right now.
 
 ### Goals
 
-Put high value asteroids into the fab.
+Put high value asteroids into the fab intake?
 * how to discern high value?
+  * color?
   * reuse "Asteroids" background tones as proximity guage?
+* why?
+  * provided with raw material, the fab makes things?
+    * fuel?
+    * extra life?
+  * unlocks progress to next level?
+    * need to fill the fab?
+      Implies same amount for each level.
+      So maybe harder levels make high value asteroids harder to come by?
+    * need to find all high value asteroids?
+      Levels could have varying amounts of high value asteroids.
+
+  * filling it, or collecting all high value asteroids, unlocks next level?
 
 ### Landing / Docking
 
