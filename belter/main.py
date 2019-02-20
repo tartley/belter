@@ -7,7 +7,7 @@ def main():
     world = World()
     window = Window()
     window.create("Belter")
-    render = Render(window)
+    render = Render(window, world)
     window.set_on_draw(render.on_draw)
     for item in level.initial_items():
         world.add_item(item)
