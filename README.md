@@ -44,12 +44,15 @@ That's all that works right now.
 * draw glyphs in correct position
 * draw glyphs in correct orientation
 * bodies may consist of polygons, which are tessellated into triangles
-* screenshot in readme
-* produce an linux executable
+* screenshot in readme?
+* Produce a linux executable:
+  * generate requirements/main.txt, using a fresh virtualenv
+  * Install our code using `pip install --no-deps .`
 * make a github release
 * ask someone to download and double click
-* e2e test which builds the executable, runs with --selftest|exitafter, asserts
-  exitval.
+* e2e test which builds the executable, runs with --selftest
+* put source into a src folder
+  install using `pip install --no-deps -e .`
 * bodies are also added to pymunk
 * world.update calls pymunk.step
 * results of pymunk.step are used for render positions and orientations
