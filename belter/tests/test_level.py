@@ -1,5 +1,5 @@
 from ..level import initial_items
-from ..models import Ship
+from ..items import Ship
 
 def test_initial_items():
     actual = initial_items()

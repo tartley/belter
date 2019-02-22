@@ -1,6 +1,6 @@
 from py2d.Math import Polygon
 
-from ..models import Ship
+from ..items import Ship
 
 def test_Ship():
     actual = Ship()
