@@ -38,11 +38,16 @@ That's all that works right now.
 
 ## TODO
 
+* rename window.Window.window to window.Window.pygwin ?
 * When added to the world, the ship's body is converted into a Glyph, which is
   sent to gfx card (vbo? vao?) and id is added to the render collection.
 * In on_draw, we draw all the glyphs
+* asteroids v1 (triangles)
 * draw glyphs in correct position
 * draw glyphs in correct orientation
+* camera. Hmm. How to pass in both:
+    * camera transform (fixed)
+    * item transform (per primitive)
 * bodies may consist of polygons, which are tessellated into triangles
 * screenshot in readme?
 * Produce a linux executable:
@@ -64,6 +69,8 @@ That's all that works right now.
 * executable
 * github release
 * e2e test of building executable and running it in self-test mode
+* performance: specify min reqd screen depth buffer size, no stencil buffer.
+  How about printing screen info, see what we're getting?
 
 ## Gameplay
 
@@ -85,6 +92,8 @@ Put high value asteroids into the fab intake?
       Levels could have varying amounts of high value asteroids.
 
   * filling it, or collecting all high value asteroids, unlocks next level?
+
+# Decisions Made
 
 ### Landing / Docking
 
@@ -114,4 +123,29 @@ isn't as hair-raising. But it is better in that the asteroid moves in freefall,
 as opposed to a tethered spiral, and hence it's path can be more
 precisely and meaningfully predicted, both by the player, and by the game's
 HUD, for example in plotting orbits or estimated path to point of impact.
+
+## Framework
+
+Figure out framework to use:
+  1. Use pyglet, using default opengl 3.0, like gloopy.
+     Working example in moderngl mgl_new_example_pyglet.py
+         Without fps, window is black,
+         but does render briefly when you hit escape.
+         renders fine if you add some pyglet draw call.
+         Seems like some pyglet render is needed to make window flip, maybe?
+     'moderngl' defaults to gl 3.3. What features don't work at 3.0?
+     * Least work.
+     * Know how to do it.
+     * Can use pyglet's new 'graphics' module to render meshes.
+     * Wish I could use some more modern open gl.
+  2. Ask pyglet to give me >3.0 (gives 4.5)
+     Pyglet sprite, label, etc do not work like this.
+        Would have to reimplement all drawing operations from scratch.
+     And window resize calling gl.glMatrixModel also barfs
+        Can we work around that? Give our own window.on_resize, etc?
+     * Most work
+     * Get to use modern opengl
+     * May be a little faster?
+Let's start with 1, but using as modern GL as we can.
+So no 'modelview' transform, use... er, whatever the equivalent is. Uniforms?
 
