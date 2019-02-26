@@ -9,36 +9,36 @@ class Window:
 
     def __init__(self):
         # The pyglet Window instance
-        self.win = None
+        self.pygwin = None
         self.keys = {
             key.F10: self.toggle_fullscreen,
         }
 
     def create(self, title):
-        self.win = pyglet.window.Window(
+        self.pygwin = pyglet.window.Window(
             caption=title, fullscreen=False, vsync=False
         )
-        self.win.set_handler('on_key_press', self.on_key_press)
+        self.pygwin.set_handler('on_key_press', self.on_key_press)
 
     def _get_current_screen_index(self):
-        current = self.win.screen
-        screens = self.win.display.get_screens()
+        current = self.pygwin.screen
+        screens = self.pygwin.display.get_screens()
         for index, screen in enumerate(screens):
             if screen == current:
                 return index
         raise RuntimeError(f"Current screen {current} not found in {screens}")
 
     def _get_next_screen(self):
-        screens = self.win.display.get_screens()
+        screens = self.pygwin.display.get_screens()
         current_index = self._get_current_screen_index()
         next_index = (current_index + 1) % len(screens)
         return screens[next_index]
 
     def toggle_fullscreen(self):
-        if self.win.fullscreen:
-            self.win.set_fullscreen(fullscreen=False)
+        if self.pygwin.fullscreen:
+            self.pygwin.set_fullscreen(fullscreen=False)
         else:
-            self.win.set_fullscreen(screen=self._get_next_screen())
+            self.pygwin.set_fullscreen(screen=self._get_next_screen())
 
     def on_key_press(self, symbol, _):
         if symbol in self.keys:
@@ -46,13 +46,13 @@ class Window:
             return EVENT_HANDLED
 
     def get_fps_display(self):
-        return pyglet.window.FPSDisplay(self.win)
+        return pyglet.window.FPSDisplay(self.pygwin)
 
     def clear(self):
-        self.win.clear()
+        self.pygwin.clear()
 
     def set_on_draw(self, on_draw):
-        self.win.set_handler('on_draw', on_draw)
+        self.pygwin.set_handler('on_draw', on_draw)
 
     def main_loop(self, world):
         pyglet.clock.schedule(world.update)

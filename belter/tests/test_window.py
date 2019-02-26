@@ -8,7 +8,7 @@ from ..window import Window
 
 def test_constructor():
     window = Window()
-    assert window.win is None
+    assert window.pygwin is None
 
 @patch('belter.window.pyglet')
 def test_create(mypyglet):
@@ -18,45 +18,45 @@ def test_create(mypyglet):
 
     assert mypyglet.window.Window.call_args == \
         call(caption='mytitle', fullscreen=False, vsync=False)
-    win = mypyglet.window.Window.return_value
-    assert win.set_handler.call_args == \
+    pygwin = mypyglet.window.Window.return_value
+    assert pygwin.set_handler.call_args == \
         call('on_key_press', window.on_key_press)
 
 def setup_toggle_fullscreen(screens, current):
 
     def set_fullscreen(fullscreen=True, screen=None):
-        window.win.fullscreen = fullscreen
+        window.pygwin.fullscreen = fullscreen
         if screen:
-            window.win.screen = screen
+            window.pygwin.screen = screen
 
     window = Window()
-    window.win = Mock(fullscreen=False)
-    window.win.display = Mock(get_screens=lambda: screens)
-    window.win.screen = current
-    window.win.set_fullscreen.side_effect = set_fullscreen
+    window.pygwin = Mock(fullscreen=False)
+    window.pygwin.display = Mock(get_screens=lambda: screens)
+    window.pygwin.screen = current
+    window.pygwin.set_fullscreen.side_effect = set_fullscreen
     return window
 
 def test_toggle_fullscreen_one():
     window = setup_toggle_fullscreen(['s0'], 's0')
     window.toggle_fullscreen()
-    assert window.win.set_fullscreen.call_args == call(screen='s0')
+    assert window.pygwin.set_fullscreen.call_args == call(screen='s0')
     window.toggle_fullscreen()
-    assert window.win.set_fullscreen.call_args == call(fullscreen=False)
+    assert window.pygwin.set_fullscreen.call_args == call(fullscreen=False)
     window.toggle_fullscreen()
-    assert window.win.set_fullscreen.call_args == call(screen='s0')
+    assert window.pygwin.set_fullscreen.call_args == call(screen='s0')
     window.toggle_fullscreen()
-    assert window.win.set_fullscreen.call_args == call(fullscreen=False)
+    assert window.pygwin.set_fullscreen.call_args == call(fullscreen=False)
 
 def test_toggle_fullscreen_multiple():
     window = setup_toggle_fullscreen(['s0', 's1'], 's0')
     window.toggle_fullscreen()
-    assert window.win.set_fullscreen.call_args == call(screen='s1')
+    assert window.pygwin.set_fullscreen.call_args == call(screen='s1')
     window.toggle_fullscreen()
-    assert window.win.set_fullscreen.call_args == call(fullscreen=False)
+    assert window.pygwin.set_fullscreen.call_args == call(fullscreen=False)
     window.toggle_fullscreen()
-    assert window.win.set_fullscreen.call_args == call(screen='s0')
+    assert window.pygwin.set_fullscreen.call_args == call(screen='s0')
     window.toggle_fullscreen()
-    assert window.win.set_fullscreen.call_args == call(fullscreen=False)
+    assert window.pygwin.set_fullscreen.call_args == call(fullscreen=False)
 
 def test_toggle_fullscreen_fails():
     window = setup_toggle_fullscreen(['s0', 's1'], 's99')
@@ -82,29 +82,29 @@ def test_on_key_press_unrecognized():
 @patch('belter.window.pyglet.window.FPSDisplay')
 def test_get_fps_display(my_fps_display):
     window = Window()
-    window.win = Mock()
+    window.pygwin = Mock()
 
     actual = window.get_fps_display()
 
     assert actual == my_fps_display.return_value
-    assert my_fps_display.call_args == call(window.win)
+    assert my_fps_display.call_args == call(window.pygwin)
 
 def test_clear():
     window = Window()
-    window.win = Mock()
+    window.pygwin = Mock()
 
     window.clear()
 
-    assert window.win.clear.call_args == call()
+    assert window.pygwin.clear.call_args == call()
 
 def test_set_on_draw():
     window = Window()
-    window.win = Mock()
+    window.pygwin = Mock()
     my_on_draw = Mock()
 
     window.set_on_draw(my_on_draw)
 
-    assert window.win.set_handler.call_args == call('on_draw', my_on_draw)
+    assert window.pygwin.set_handler.call_args == call('on_draw', my_on_draw)
 
 @patch('belter.window.pyglet')
 def test_main_loop(my_pyglet):

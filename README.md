@@ -38,7 +38,6 @@ That's all that works right now.
 
 ## TODO
 
-* rename window.Window.window to window.Window.pygwin ?
 * When added to the world, the ship's body is converted into a Glyph, which is
   sent to gfx card (vbo? vao?) and id is added to the render collection.
 * In on_draw, we draw all the glyphs
