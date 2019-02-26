@@ -17,7 +17,12 @@ def test_create(mypyglet):
     window.create("mytitle")
 
     assert mypyglet.window.Window.call_args == \
-        call(caption='mytitle', fullscreen=False, vsync=False)
+        call(
+            caption='mytitle',
+            config=mypyglet.gl.Config(),
+            fullscreen=False,
+            vsync=False
+        )
     pygwin = mypyglet.window.Window.return_value
     assert pygwin.set_handler.call_args == \
         call('on_key_press', window.on_key_press)

@@ -1,5 +1,7 @@
 from unittest.mock import call, Mock
 
+import moderngl
+
 from ..render import Render
 from ..world import World
 
@@ -8,6 +10,8 @@ def test_constructor():
     render = Render(pygwin, World())
     assert render.window == pygwin
     assert render.fps_display == pygwin.get_fps_display.return_value
+    assert isinstance(render.ctx, moderngl.Context)
+    assert render.vaos == set()
 
 def test_constructor_should_subscribe_on_add_item():
     called = Mock()
