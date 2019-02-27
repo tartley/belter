@@ -102,14 +102,15 @@ def test_clear():
 
     assert window.pygwin.clear.call_args == call()
 
-def test_set_on_draw():
+def test_set_handler():
     window = Window()
     window.pygwin = Mock()
     my_on_draw = Mock()
 
-    window.set_on_draw(my_on_draw)
+    window.set_handler('my event name', my_on_draw)
 
-    assert window.pygwin.set_handler.call_args == call('on_draw', my_on_draw)
+    assert window.pygwin.set_handler.call_args == \
+        call('my event name', my_on_draw)
 
 @patch('belter.window.pyglet')
 def test_main_loop(my_pyglet):

@@ -1,19 +1,17 @@
-from unittest.mock import call, Mock
-
-import moderngl
+from unittest.mock import call, Mock, patch
 
 from ..render import Render
 from ..world import World
 
-def test_constructor():
+@patch('belter.render.moderngl')
+def test_constructor(my_moderngl):
     pygwin = Mock()
     render = Render(pygwin, World())
     assert render.window == pygwin
-    assert render.fps_display == pygwin.get_fps_display.return_value
-    assert isinstance(render.ctx, moderngl.Context)
-    assert render.vaos == set()
+    assert render.ctx == my_moderngl.create_context()
 
-def test_constructor_should_subscribe_on_add_item():
+@patch('belter.render.moderngl')
+def test_constructor_should_subscribe_on_add_item(_):
     called = Mock()
 
     class MyRender(Render):
@@ -28,12 +26,12 @@ def test_constructor_should_subscribe_on_add_item():
 
     assert called.call_args == call('item1')
 
-def test_on_draw():
+@patch('belter.render.moderngl')
+def test_on_draw(_):
     pygwin = Mock()
     render = Render(pygwin, Mock())
 
     render.on_draw()
 
     assert pygwin.clear.call_args == call()
-    assert render.fps_display.draw.call_args == call()
 

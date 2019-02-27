@@ -7,7 +7,7 @@ def main():
     world = World()
     window = Window()
     window.create("Belter")
-    render = Render(window, world)
+    Render(window, world) # adds event handlers
     for item in level.initial_items():
         world.add_item(item)
     window.main_loop(world)
