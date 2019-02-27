@@ -38,6 +38,16 @@ That's all that works right now.
 
 ## TODO
 
+* What happens to our current code when we request opengl 4.5?
+    * fps_display raises errors calling gl fn that doesn't exist
+      Fixable by removing fps_display
+    * default window.on_resize raises errors calling gl fn that doesn't exist
+      Fixable by adding our own on_resize
+    * Window is black until exiting. Is it not flipping?
+
+* where should we do window resize handler for realz?
+* render calls window.set_handler('on_draw', self.draw),
+  doesn't need mainloop to do it for us.
 * When added to the world, the ship's body is converted into a Glyph, which is
   sent to gfx card (vbo? vao?) and id is added to the render collection.
 * In on_draw, we draw all the glyphs
@@ -147,4 +157,17 @@ Figure out framework to use:
      * May be a little faster?
 Let's start with 1, but using as modern GL as we can.
 So no 'modelview' transform, use... er, whatever the equivalent is. Uniforms?
+
+## modern opengl 101
+
+model (local, object) space
+    model transform
+world space
+    view transform      (model.view = modelview, aka M)
+view (camera, eye) space
+    projection transform (P)
+clip space (normalized) (output of vertex shader)
+    clipping, then
+    viewport transform
+screen space (pixel co-ordinates)
 

@@ -8,7 +8,6 @@ from pyglet.event import EVENT_HANDLED
 class Window:
 
     def __init__(self):
-        # The pyglet Window instance
         self.pygwin = None
         self.keys = {
             key.F10: self.toggle_fullscreen,
@@ -16,7 +15,7 @@ class Window:
 
     def create(self, title):
         self.pygwin = pyglet.window.Window(
-            config=pyglet.gl.Config(major_version=3, minor_version=0),
+            config=pyglet.gl.Config(major_version=3, minor_version=3),
             caption=title, fullscreen=False, vsync=False
         )
         print(self.pygwin.context.get_info().get_version())
@@ -53,8 +52,10 @@ class Window:
     def clear(self):
         self.pygwin.clear()
 
-    def set_on_draw(self, on_draw):
-        self.pygwin.set_handler('on_draw', on_draw)
+    def set_handler(self, event_name, handler=None):
+        if handler is None:
+            handler = lambda *_, **__: EVENT_HANDLED
+        self.pygwin.set_handler(event_name, handler)
 
     def main_loop(self, world):
         pyglet.clock.schedule(world.update)

@@ -8,7 +8,6 @@ def main():
     window = Window()
     window.create("Belter")
     render = Render(window, world)
-    window.set_on_draw(render.on_draw)
     for item in level.initial_items():
         world.add_item(item)
     window.main_loop(world)
