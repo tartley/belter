@@ -7,7 +7,8 @@ def main():
     world = World()
     window = Window()
     window.create("Belter")
-    Render(window, world) # adds event handlers
+    render = Render(window, world)
+    render.compile_shader()
     for item in level.initial_items():
         world.add_item(item)
     window.main_loop(world)

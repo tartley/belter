@@ -2,6 +2,7 @@
 
 ignore =
     E261 # at least two spaces before inline comment
+    E301 # expected 1 blank line, found 0
     E302 # expected 2 blank lines
     E305 # expected 2 blank lines after class
     E731 # do not assign a lambda expression, use a def

@@ -21,27 +21,39 @@ class Render:
 
     def __init__(self, window, world):
         self.window = window
-        world.on_add_item.subscribe(self.on_add_item)
+        self.world = world
         self.ctx = moderngl.create_context()
+        self.vaos = {}
+        self.shader = None
 
-        # TODO untested
-        window.set_handler('on_draw', self.on_draw)
+        world.on_add_item.subscribe(self.add_item)
+        window.set_handler('on_draw', self.draw)
         window.set_handler('on_resize')
 
-        vbo = self.ctx.buffer(
-            struct.pack('6f', 0.0, 0.8, -0.6, -0.8, 0.6, -0.8)
-        )
-        program = self.ctx.program(
+    def compile_shader(self):
+        self.shader = self.ctx.program(
             vertex_shader=VERTEX,
             fragment_shader=FRAGMENT,
         )
-        self.vao = self.ctx.simple_vertex_array(program, vbo, 'vert')
 
-    def on_add_item(self, item):
-        pass
+    def get_vao(self, _):
+        # TODO: untested. Should use item.shape for verts
+        return self.ctx.simple_vertex_array(
+            self.shader,
+            self.ctx.buffer(
+                struct.pack('6f', 0.0, 0.8, -0.6, -0.8, 0.6, -0.8)
+            ),
+            'vert'
+        )
 
-    def on_draw(self):
+    def add_item(self, item):
+        self.vaos[id(item)] = self.get_vao(item.shape)
+
+    def draw(self):
+        # todo, use ctx.clear, don't store window. don't pass window?
+        # move set_handler calls up out of here?
         self.window.clear()
-        self.vao.render()
+        for item in self.world.items:
+            self.vaos[id(item)].render()
         self.ctx.finish()
 
