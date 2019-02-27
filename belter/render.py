@@ -19,16 +19,12 @@ void main() {
 
 class Render:
 
-    def __init__(self, window, world):
-        self.window = window
+    def __init__(self, world):
         self.world = world
         self.ctx = moderngl.create_context()
         self.vaos = {}
         self.shader = None
-
         world.on_add_item.subscribe(self.add_item)
-        window.set_handler('on_draw', self.draw)
-        window.set_handler('on_resize')
 
     def compile_shader(self):
         self.shader = self.ctx.program(
@@ -50,9 +46,7 @@ class Render:
         self.vaos[id(item)] = self.get_vao(item.shape)
 
     def draw(self):
-        # todo, use ctx.clear, don't store window. don't pass window?
-        # move set_handler calls up out of here?
-        self.window.clear()
+        self.ctx.clear()
         for item in self.world.items:
             self.vaos[id(item)].render()
         self.ctx.finish()

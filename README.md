@@ -83,6 +83,8 @@ That's all that works right now.
 * e2e test of building executable and running it in self-test mode
 * performance: specify min reqd screen depth buffer size, no stencil buffer.
   How about printing screen info, see what we're getting?
+* waiting at end of Render.draw is probably suboptimal.
+  Can we wait before rendering the previous frame, instead?
 
 ## Gameplay
 

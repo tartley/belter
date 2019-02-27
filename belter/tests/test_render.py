@@ -5,11 +5,9 @@ from ..world import World
 
 @patch('belter.render.moderngl')
 def test_constructor(my_moderngl):
-    pygwin = Mock()
 
-    render = Render(pygwin, World())
+    render = Render(World())
 
-    assert render.window == pygwin
     assert render.ctx == my_moderngl.create_context()
     assert render.vaos == {}
     assert render.shader is None
@@ -19,26 +17,15 @@ def test_constructor_should_subscribe_to_world_on_add_item(_):
     class MyRender(Render):
         add_item = Mock()
     world = World()
-    render = MyRender(Mock(), world)
+    render = MyRender(world)
 
     world.add_item('item1')
 
     assert render.add_item.call_args == call('item1')
 
-def test_constructor_should_subscribe_to_window_events():
-    window = Mock()
-
-    render = Render(window, Mock())
-
-    assert window.set_handler.call_args_list == [
-        call('on_draw', render.draw),
-        call('on_resize'),
-    ]
-
 @patch('belter.render.moderngl')
 def test_compile_shader(my_moderngl):
-    pygwin = Mock()
-    render = Render(pygwin, World())
+    render = Render(World())
 
     render.compile_shader()
 
@@ -46,7 +33,7 @@ def test_compile_shader(my_moderngl):
     assert render.shader == ctx.program()
 
 def test_add_item():
-    render = Render(Mock(), Mock())
+    render = Render(Mock())
     render.get_vao = Mock(return_value=123)
     item = Mock()
 
@@ -57,12 +44,11 @@ def test_add_item():
 
 @patch('belter.render.moderngl')
 def test_draw(_):
-    pygwin = Mock()
     item1 = object()
     item2 = object()
     world = Mock()
     world.items = [item1, item2]
-    render = Render(pygwin, world)
+    render = Render(world)
     vao1 = Mock()
     vao2 = Mock()
     render.vaos = {
@@ -72,7 +58,6 @@ def test_draw(_):
 
     render.draw()
 
-    assert pygwin.clear.call_args == call()
     assert vao1.render.call_args == call()
     assert vao2.render.call_args == call()
     assert render.ctx.finish.call_args == call()
