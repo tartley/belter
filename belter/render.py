@@ -32,9 +32,9 @@ class Render:
             fragment_shader=FRAGMENT,
         )
 
-    def pack_vertices(self, item):
+    def pack_verts(self, item):
         assert len(item.shape) == 3
-        verts = struct.pack(
+        return struct.pack(
             '6f',
             *(
                 coord
@@ -42,11 +42,13 @@ class Render:
                 for coord in (p.x, p.y)
             ),
         )
-        indices = struct.pack(
+
+    def pack_indices(self, item):
+        assert len(item.shape) == 3
+        return struct.pack(
             '3B',
             0, 1, 2,
         )
-        return verts, indices
 
     def get_vao(self, packed_verts, indices):
         return self.ctx.vertex_array(
@@ -59,7 +61,10 @@ class Render:
         )
 
     def add_item(self, item):
-        self.vaos[id(item)] = self.get_vao(*self.pack_vertices(item))
+        self.vaos[id(item)] = self.get_vao(
+            self.pack_verts(item),
+            self.pack_indices(item),
+        )
 
     def draw(self):
         self.ctx.clear()

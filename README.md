@@ -38,8 +38,7 @@ That's all that works right now.
 
 ## TODO
 
-* separate pack_vertices into pack_verts, pack_indices
-    need they be a method?
+* could 'pack' methods be functions? Do I care?
 * screenshot in readme?
 * shapes have a color
 * screenshot
