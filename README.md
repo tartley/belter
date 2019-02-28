@@ -38,7 +38,9 @@ That's all that works right now.
 
 ## TODO
 
+* screenshot in readme?
 * shapes have a color
+* screenshot
 * draw shapes in correct position
 * draw shapes in correct orientation
 * camera. Hmm. How to pass in all of:
@@ -46,11 +48,16 @@ That's all that works right now.
     * camera transform (per frame)
     * item transform (per primitive)
     * where should we do window resize handler for realz?
+* screenshot
 * shapes may consist of polygons, which are tessellated into triangles
+* screenshot
 * performance test
 * performance: try a padding byte 'x' in the struct pack.
-* indexed vert lists
-* screenshot in readme?
+* performance: render should store vao keyed on id(shape), not id(item),
+  then multiple items could use same vao,
+  either simultaneously or sequentially.
+* Read about interleaved rather than separate vert/color buffers?
+* screenshot
 * Produce a linux executable:
   * generate requirements/main.txt, using a fresh virtualenv
   * Install our code using `pip install --no-deps .`

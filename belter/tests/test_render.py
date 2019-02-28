@@ -35,45 +35,51 @@ def test_compile_shader(my_moderngl):
     ctx = my_moderngl.create_context()
     assert render.shader == ctx.program()
 
-def test_get_packed_verts():
+def test_pack_vertices():
     render = Render(World())
     polygon = Polygon.from_pointlist([
         Vector(1.1, 2.2),
         Vector(3.3, 4.4),
         Vector(5.5, 6.6),
     ])
+    item = Mock(shape=polygon)
 
-    actual = render.pack_vertices(polygon)
+    verts, indices = render.pack_vertices(item)
 
-    assert actual == struct.pack('6f', 1.1, 2.2, 3.3, 4.4, 5.5, 6.6)
+    assert verts == struct.pack('6f', 1.1, 2.2, 3.3, 4.4, 5.5, 6.6)
+    assert indices == struct.pack('3i', 0, 1, 2)
 
 def test_get_vao():
     render = Render(World())
     render.ctx = Mock()
     render.shader = 'my shader'
-    render.pack_vertices = Mock()
 
-    actual = render.get_vao('my packed verts')
+    actual = render.get_vao('verts', 'indices')
 
-    assert actual == render.ctx.simple_vertex_array.return_value
-    assert render.ctx.simple_vertex_array.call_args == call(
+    assert actual == render.ctx.vertex_array.return_value
+    assert render.ctx.vertex_array.call_args == call(
         'my shader',
+        [
+            (render.ctx.buffer.return_value, '2f', 'vert'),
+        ],
         render.ctx.buffer.return_value,
-        'vert',
     )
-    assert render.ctx.buffer.call_args == call('my packed verts')
+    assert render.ctx.buffer.call_args_list == [
+        call('verts'),
+        call('indices'),
+    ]
 
 def test_add_item():
     render = Render(World())
-    render.get_vao = Mock(return_value='my vao')
-    render.pack_vertices = Mock(return_value='my packed verts')
+    render.get_vao = Mock(return_value='vao')
+    render.pack_vertices = Mock(return_value=('verts', 'indices'))
     item = Mock()
 
     render.add_item(item)
 
-    assert render.vaos == {id(item): 'my vao'}
-    assert render.get_vao.call_args == call('my packed verts')
-    assert render.pack_vertices.call_args == call(item.shape)
+    assert render.vaos == {id(item): 'vao'}
+    assert render.get_vao.call_args == call('verts', 'indices')
+    assert render.pack_vertices.call_args == call(item)
 
 @patch('belter.render.moderngl')
 def test_draw(_):
