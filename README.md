@@ -46,7 +46,9 @@ That's all that works right now.
     * camera transform (per frame)
     * item transform (per primitive)
     * where should we do window resize handler for realz?
-* bodies may consist of polygons, which are tessellated into triangles
+* shapes may consist of polygons, which are tessellated into triangles
+* performance test
+* indexed vert lists
 * screenshot in readme?
 * Produce a linux executable:
   * generate requirements/main.txt, using a fresh virtualenv
@@ -68,8 +70,6 @@ That's all that works right now.
 * executable
 * github release
 * e2e test of building executable and running it in self-test mode
-* performance: specify window no depth buffer, no stencil buffer, etc.
-  How about printing screen info, see what we're getting?
 * waiting at end of Render.draw is probably suboptimal.
   Can we wait before rendering the previous frame, instead?
 * print diagnostics

@@ -40,7 +40,6 @@ freeze:
 	echo ""
 	echo "Now restore git repo urls in requirements/dev.txt"
 	echo " * py2d"
-	echo " * colout"
 	echo ""
 
 install:

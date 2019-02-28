@@ -1,5 +1,4 @@
 -r ./main.in
-git+git://github.com/nojhan/colout.git
 flake8
 flake8-colors
 pytest
