@@ -1,4 +1,3 @@
-import itertools
 import struct
 
 import moderngl
@@ -37,7 +36,11 @@ class Render:
         assert len(item.shape) == 3
         verts = struct.pack(
             '6f',
-            *(itertools.chain.from_iterable((p.x, p.y) for p in item.shape))
+            *(
+                coord
+                for p in item.shape
+                for coord in (p.x, p.y)
+            ),
         )
         indices = struct.pack(
             '3i',
