@@ -1,5 +1,5 @@
-from .items import Ship
+from .items import Asteroid, Ship
 
 def initial_items():
-    return [Ship()]
+    return [Ship(), Asteroid()]
 

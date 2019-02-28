@@ -39,16 +39,12 @@ That's all that works right now.
 ## TODO
 
 * where should we do window resize handler for realz?
-* render calls window.set_handler('on_draw', self.draw),
-  doesn't need mainloop to do it for us.
-* When added to the world, the ship's body is converted into a Glyph, which is
-  sent to gfx card (vbo? vao?) and id is added to the render collection.
-* In on_draw, we draw all the glyphs
-* asteroids v1 (triangles)
-* draw glyphs in correct position
-* draw glyphs in correct orientation
+* shapes have a color
+* draw shapes in correct position
+* draw shapes in correct orientation
 * camera. Hmm. How to pass in both:
-    * camera transform (fixed)
+    * perspective transform (fixed)
+    * camera transform (per frame)
     * item transform (per primitive)
 * bodies may consist of polygons, which are tessellated into triangles
 * screenshot in readme?
