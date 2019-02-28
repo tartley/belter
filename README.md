@@ -48,6 +48,7 @@ That's all that works right now.
     * where should we do window resize handler for realz?
 * shapes may consist of polygons, which are tessellated into triangles
 * performance test
+* performance: try a padding byte 'x' in the struct pack.
 * indexed vert lists
 * screenshot in readme?
 * Produce a linux executable:

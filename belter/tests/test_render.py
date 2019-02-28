@@ -36,7 +36,7 @@ def test_compile_shader(my_moderngl):
     assert render.shader == ctx.program()
 
 def test_get_packed_verts():
-    render = Render(Mock())
+    render = Render(World())
     polygon = Polygon.from_pointlist([
         Vector(1.1, 2.2),
         Vector(3.3, 4.4),
@@ -48,7 +48,7 @@ def test_get_packed_verts():
     assert actual == struct.pack('6f', 1.1, 2.2, 3.3, 4.4, 5.5, 6.6)
 
 def test_get_vao():
-    render = Render(Mock())
+    render = Render(World())
     render.ctx = Mock()
     render.shader = 'my shader'
     render.pack_vertices = Mock()
@@ -64,7 +64,7 @@ def test_get_vao():
     assert render.ctx.buffer.call_args == call('my packed verts')
 
 def test_add_item():
-    render = Render(Mock())
+    render = Render(World())
     render.get_vao = Mock(return_value='my vao')
     render.pack_vertices = Mock(return_value='my packed verts')
     item = Mock()
@@ -79,7 +79,7 @@ def test_add_item():
 def test_draw(_):
     item1 = object()
     item2 = object()
-    world = Mock()
+    world = World()
     world.items = [item1, item2]
     render = Render(world)
     vao1 = Mock()
