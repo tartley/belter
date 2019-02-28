@@ -1,4 +1,7 @@
+import struct
 from unittest.mock import call, Mock, patch
+
+from py2d.Math import Polygon, Vector
 
 from ..render import Render
 from ..world import World
@@ -32,29 +35,45 @@ def test_compile_shader(my_moderngl):
     ctx = my_moderngl.create_context()
     assert render.shader == ctx.program()
 
+def test_get_packed_verts():
+    render = Render(Mock())
+    polygon = Polygon.from_pointlist([
+        Vector(1.1, 2.2),
+        Vector(3.3, 4.4),
+        Vector(5.5, 6.6),
+    ])
+
+    actual = render.pack_vertices(polygon)
+
+    assert actual == struct.pack('6f', 1.1, 2.2, 3.3, 4.4, 5.5, 6.6)
+
 def test_get_vao():
     render = Render(Mock())
     render.ctx = Mock()
     render.shader = 'my shader'
-    render.get_packed_vertices = Mock()
+    render.pack_vertices = Mock()
 
     actual = render.get_vao('my packed verts')
 
     assert actual == render.ctx.simple_vertex_array.return_value
-    assert render.ctx.simple_vertex_array.call_args == \
-        call('my shader', 'my packed verts', 'vert')
+    assert render.ctx.simple_vertex_array.call_args == call(
+        'my shader',
+        render.ctx.buffer.return_value,
+        'vert',
+    )
+    assert render.ctx.buffer.call_args == call('my packed verts')
 
 def test_add_item():
     render = Render(Mock())
     render.get_vao = Mock(return_value='my vao')
-    render.get_packed_vertices = Mock(return_value='my packed verts')
+    render.pack_vertices = Mock(return_value='my packed verts')
     item = Mock()
 
     render.add_item(item)
 
     assert render.vaos == {id(item): 'my vao'}
     assert render.get_vao.call_args == call('my packed verts')
-    assert render.get_packed_vertices.call_args == call(item.shape)
+    assert render.pack_vertices.call_args == call(item.shape)
 
 @patch('belter.render.moderngl')
 def test_draw(_):

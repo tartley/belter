@@ -38,7 +38,6 @@ That's all that works right now.
 
 ## TODO
 
-* Render.get_packed_vertices: untested, should use given polygon
 * use mock() instead of mock.return value
 * where should we do window resize handler for realz?
 * render calls window.set_handler('on_draw', self.draw),
@@ -67,6 +66,7 @@ That's all that works right now.
 * results of pymunk.step are used for render positions and orientations
 * starfield v1
 * bodies are rendered as an outline, with a black interior
+* Render.get_packed_vertices: struct.pack on asterisked iterable must be slow.
 * keys to control ship
 * self documenting makefile
 * copy stuff back into project template
