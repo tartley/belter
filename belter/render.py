@@ -43,7 +43,7 @@ class Render:
             ),
         )
         indices = struct.pack(
-            '3i',
+            '3B',
             0, 1, 2,
         )
         return verts, indices
@@ -55,6 +55,7 @@ class Render:
                 (self.ctx.buffer(packed_verts), '2f', 'vert'),
             ],
             self.ctx.buffer(indices),
+            index_element_size=1,
         )
 
     def add_item(self, item):

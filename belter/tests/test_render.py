@@ -47,7 +47,7 @@ def test_pack_vertices():
     verts, indices = render.pack_vertices(item)
 
     assert verts == struct.pack('6f', 1.1, 2.2, 3.3, 4.4, 5.5, 6.6)
-    assert indices == struct.pack('3i', 0, 1, 2)
+    assert indices == struct.pack('3B', 0, 1, 2)
 
 def test_get_vao():
     render = Render(World())
@@ -63,6 +63,7 @@ def test_get_vao():
             (render.ctx.buffer.return_value, '2f', 'vert'),
         ],
         render.ctx.buffer.return_value,
+        index_element_size=1,
     )
     assert render.ctx.buffer.call_args_list == [
         call('verts'),

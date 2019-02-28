@@ -58,6 +58,9 @@ That's all that works right now.
 * performance: render should store vao keyed on id(shape), not id(item),
   then multiple items could use same vao,
   either simultaneously or sequentially.
+* ctx.vertex_array index_element_size arg should sync with indices struct.pack
+  arg. Maybe get_vao should decide on element size, and pass it in?
+  Or they each call a 'element_size_int' and 'element_size_char'?
 * Read about interleaved rather than separate vert/color buffers?
 * screenshot
 * Produce a linux executable:
