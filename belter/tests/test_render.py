@@ -32,15 +32,29 @@ def test_compile_shader(my_moderngl):
     ctx = my_moderngl.create_context()
     assert render.shader == ctx.program()
 
+def test_get_vao():
+    render = Render(Mock())
+    render.ctx = Mock()
+    render.shader = 'my shader'
+    render.get_packed_vertices = Mock()
+
+    actual = render.get_vao('my packed verts')
+
+    assert actual == render.ctx.simple_vertex_array.return_value
+    assert render.ctx.simple_vertex_array.call_args == \
+        call('my shader', 'my packed verts', 'vert')
+
 def test_add_item():
     render = Render(Mock())
-    render.get_vao = Mock(return_value=123)
+    render.get_vao = Mock(return_value='my vao')
+    render.get_packed_vertices = Mock(return_value='my packed verts')
     item = Mock()
 
     render.add_item(item)
 
-    assert render.vaos == {id(item): 123}
-    assert render.get_vao.call_args == call(item.shape)
+    assert render.vaos == {id(item): 'my vao'}
+    assert render.get_vao.call_args == call('my packed verts')
+    assert render.get_packed_vertices.call_args == call(item.shape)
 
 @patch('belter.render.moderngl')
 def test_draw(_):

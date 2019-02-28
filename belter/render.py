@@ -32,18 +32,19 @@ class Render:
             fragment_shader=FRAGMENT,
         )
 
-    def get_vao(self, _):
-        # TODO: untested. Should use item.shape for verts
-        return self.ctx.simple_vertex_array(
-            self.shader,
-            self.ctx.buffer(
-                struct.pack('6f', 0.0, 0.8, -0.6, -0.8, 0.6, -0.8)
-            ),
-            'vert'
+    def get_packed_vertices(self, _):
+        # TODO, should used passed polygon
+        return self.ctx.buffer(
+            struct.pack('6f', 0.0, 0.8, -0.6, -0.8, 0.6, -0.8)
         )
 
+    def get_vao(self, packed_verts):
+        return self.ctx.simple_vertex_array(self.shader, packed_verts, 'vert')
+
     def add_item(self, item):
-        self.vaos[id(item)] = self.get_vao(item.shape)
+        self.vaos[id(item)] = self.get_vao(
+            self.get_packed_vertices(item.shape)
+        )
 
     def draw(self):
         self.ctx.clear()

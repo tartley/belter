@@ -38,16 +38,8 @@ That's all that works right now.
 
 ## TODO
 
-* What happens to our current code when we request opengl 4.5?
-    * fps_display raises errors calling gl fn that doesn't exist
-      Fixable by removing fps_display
-    * default window.on_resize raises errors calling gl fn that doesn't exist
-      Fixable by adding our own on_resize
-    * Window is black until exiting. Is it not flipping?
-
+* Render.get_packed_vertices: untested, should use given polygon
 * use mock() instead of mock.return value
-* print python version
-* print OS
 * where should we do window resize handler for realz?
 * render calls window.set_handler('on_draw', self.draw),
   doesn't need mainloop to do it for us.
@@ -85,6 +77,12 @@ That's all that works right now.
   How about printing screen info, see what we're getting?
 * waiting at end of Render.draw is probably suboptimal.
   Can we wait before rendering the previous frame, instead?
+* print diagnostics
+    * program version
+    * OS info
+    * python version info
+    * opengl version
+* prints should be logging to a file instead
 
 ## Gameplay
 
@@ -175,4 +173,12 @@ clip space (normalized) (output of vertex shader)
     clipping, then
     viewport transform
 screen space (pixel co-ordinates)
+
+* What happens to our current code when we request opengl 4.5?
+    * fps_display raises errors calling gl fn that doesn't exist
+      Fixable by removing fps_display
+    * default window.on_resize raises errors calling gl fn that doesn't exist
+      Fixable by adding our own on_resize
+    * Window is black until exiting. Is it not flipping?
+      We need to wait for draw operations to finish after each frame
 
