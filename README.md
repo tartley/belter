@@ -38,7 +38,6 @@ That's all that works right now.
 
 ## TODO
 
-* use mock() instead of mock.return value
 * where should we do window resize handler for realz?
 * render calls window.set_handler('on_draw', self.draw),
   doesn't need mainloop to do it for us.

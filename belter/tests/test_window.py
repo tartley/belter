@@ -23,7 +23,7 @@ def test_create(mypyglet):
             fullscreen=False,
             vsync=False
         )
-    pygwin = mypyglet.window.Window.return_value
+    pygwin = mypyglet.window.Window()
     assert pygwin.set_handler.call_args == \
         call('on_key_press', window.on_key_press)
 
