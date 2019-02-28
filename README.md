@@ -38,14 +38,14 @@ That's all that works right now.
 
 ## TODO
 
-* where should we do window resize handler for realz?
 * shapes have a color
 * draw shapes in correct position
 * draw shapes in correct orientation
-* camera. Hmm. How to pass in both:
+* camera. Hmm. How to pass in all of:
     * perspective transform (fixed)
     * camera transform (per frame)
     * item transform (per primitive)
+    * where should we do window resize handler for realz?
 * bodies may consist of polygons, which are tessellated into triangles
 * screenshot in readme?
 * Produce a linux executable:
@@ -56,9 +56,9 @@ That's all that works right now.
 * e2e test which builds the executable, runs with --selftest
 * put source into a src folder
   install using `pip install --no-deps -e .`
-* bodies are also added to pymunk
+* shapes are also added to pymunk
 * world.update calls pymunk.step
-* results of pymunk.step are used for render positions and orientations
+* pymunk.step results are used to update items' position and orientation
 * starfield v1
 * bodies are rendered as an outline, with a black interior
 * Render.get_packed_vertices: struct.pack on asterisked iterable must be slow.
@@ -68,7 +68,7 @@ That's all that works right now.
 * executable
 * github release
 * e2e test of building executable and running it in self-test mode
-* performance: specify min reqd screen depth buffer size, no stencil buffer.
+* performance: specify window no depth buffer, no stencil buffer, etc.
   How about printing screen info, see what we're getting?
 * waiting at end of Render.draw is probably suboptimal.
   Can we wait before rendering the previous frame, instead?
