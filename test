@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# Runs lint and unittest
+
+make lint
+lint=$?
+make unit
+unit=$?
+
+if [[ $lint != 0 || $unit != 0 ]]; then
+    echo "FAILED"
+    exit 2
+fi
+

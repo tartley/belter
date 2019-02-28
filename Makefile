@@ -57,7 +57,8 @@ lint:
 unit:
 	${python} -m pytest -q --color=yes
 
-test: lint unit
+test:
+	./test
 
 .SILENT:
 
