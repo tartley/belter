@@ -5,15 +5,19 @@ import moderngl
 VERTEX = '''\
 #version 330
 in vec2 vert;
+in vec3 color_in;
+out vec3 color_vert;
 void main() {
     gl_Position = vec4(vert, 0.0, 1.0);
+    color_vert = color_in;
 }
 '''
 FRAGMENT = '''\
 #version 330
+in vec3 color_vert;
 out vec4 color;
 void main() {
-    color = vec4(0.30, 0.50, 1.00, 1.0);
+    color = vec4(color_vert, 1.0);
 }
 '''
 
@@ -43,6 +47,17 @@ class Render:
             ),
         )
 
+    def pack_colors(self, item):
+        assert len(item.shape) == 3
+        return struct.pack(
+            '9f',
+            *(
+                coord
+                for _ in item.shape
+                for coord in (item.color.r, item.color.g, item.color.b)
+            ),
+        )
+
     def pack_indices(self, item):
         assert len(item.shape) == 3
         return struct.pack(
@@ -50,11 +65,12 @@ class Render:
             0, 1, 2,
         )
 
-    def get_vao(self, packed_verts, indices):
+    def get_vao(self, verts, colors, indices):
         return self.ctx.vertex_array(
             self.shader,
             [
-                (self.ctx.buffer(packed_verts), '2f', 'vert'),
+                (self.ctx.buffer(verts), '2f', 'vert'),
+                (self.ctx.buffer(colors), '3f', 'color_in'),
             ],
             self.ctx.buffer(indices),
             index_element_size=1,
@@ -63,6 +79,7 @@ class Render:
     def add_item(self, item):
         self.vaos[id(item)] = self.get_vao(
             self.pack_verts(item),
+            self.pack_colors(item),
             self.pack_indices(item),
         )
 

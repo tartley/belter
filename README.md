@@ -38,10 +38,8 @@ That's all that works right now.
 
 ## TODO
 
-* could 'pack' methods be functions? Do I care?
+* colors passed in as unsigned bytes?
 * screenshot in readme?
-* shapes have a color
-* screenshot
 * draw shapes in correct position
 * draw shapes in correct orientation
 * camera. Hmm. How to pass in all of:
