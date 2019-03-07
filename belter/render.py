@@ -50,7 +50,7 @@ class Render:
     def pack_colors(self, item):
         assert len(item.shape) == 3
         return struct.pack(
-            '9f',
+            '9B',
             *(
                 coord
                 for _ in item.shape
@@ -70,7 +70,7 @@ class Render:
             self.shader,
             [
                 (self.ctx.buffer(verts), '2f', 'vert'),
-                (self.ctx.buffer(colors), '3f', 'color_in'),
+                (self.ctx.buffer(colors), '3f1', 'color_in'),
             ],
             self.ctx.buffer(indices),
             index_element_size=1,

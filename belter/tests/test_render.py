@@ -55,16 +55,16 @@ def test_pack_colors():
     render = Render(World())
     item = Mock(
         shape=get_triangle(),
-        color=Color(0.1, 0.2, 0.3, 0.4),
+        color=Color(11, 22, 33, 44),
     )
 
     actual = render.pack_colors(item)
 
     assert actual == struct.pack(
-        '9f',
-        0.1, 0.2, 0.3,
-        0.1, 0.2, 0.3,
-        0.1, 0.2, 0.3,
+        '9B',
+        11, 22, 33,
+        11, 22, 33,
+        11, 22, 33,
     )
 
 def test_pack_indices():
@@ -88,7 +88,7 @@ def test_get_vao():
         'my shader',
         [
             (render.ctx.buffer.return_value, '2f', 'vert'),
-            (render.ctx.buffer.return_value, '3f', 'color_in'),
+            (render.ctx.buffer.return_value, '3f1', 'color_in'),
         ],
         render.ctx.buffer.return_value,
         index_element_size=1,
