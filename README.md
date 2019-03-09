@@ -2,6 +2,15 @@
 
 A videogame with 2D vector graphics, reminiscent of Asteroids.
 
+## new edits to be merged with diffs on t460:
+
+* performance: creating vert buffer
+  * try a single interleaved buffer
+  * try array module?
+  * try ctypes slice assignment from gloopy?
+  * try the answers from this page:
+    https://stackoverflow.com/questions/9940859/fastest-way-to-pack-a-list-of-floats-into-bytes-in-python/55081769#55081769
+
 ## Status
 
 Just started. A blank window.
@@ -186,4 +195,18 @@ screen space (pixel co-ordinates)
       Fixable by adding our own on_resize
     * Window is black until exiting. Is it not flipping?
       We need to wait for draw operations to finish after each frame
+
+## interleaved arrays
+Separate arrays for verts & colors, vs one interleaved array?
+Am I going to want to use one buffer of vert positions
+with different buffers of colors? Sounds fun, but I don't think so:
+* I don't plan to have hordes of same shape / different color items
+* If I did, the memory savings of de-duping the verts is unimportant
+* But, the time saving of creating and sending to GPU is.
+* But but, if mutating the colors, I'd probably want to do that on
+  an item-by-item basis, rather than for all items in unison.
+So, it sounds like a possible but unlikely future performance enhancement.
+Hence, ignore it for now.
+Conclusion: Use interleaved arrays, unless they prove awkward/slow to
+create.
 
