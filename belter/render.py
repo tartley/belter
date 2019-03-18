@@ -4,11 +4,12 @@ import moderngl
 
 VERTEX = '''\
 #version 330
+uniform vec2 item_pos;
 in vec2 vert;
 in vec3 color_in;
 out vec3 color_vert;
 void main() {
-    gl_Position = vec4(vert, 0.0, 1.0);
+    gl_Position = vec4(item_pos + vert, 0.0, 1.0);
     color_vert = color_in;
 }
 '''
@@ -88,6 +89,7 @@ class Render:
     def draw(self):
         self.ctx.clear()
         for item in self.world.items:
+            self.shader['item_pos'].value = item.x, item.y
             self.vaos[id(item)].render()
         self.ctx.finish()
 

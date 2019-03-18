@@ -48,8 +48,9 @@ That's all that works right now.
 ## TODO
 
 ### features
-* draw shapes in correct position
+* move per frame
 * draw shapes in correct orientation
+* rotate per frame
 * screenshot in readme?
 * camera. Hmm. How to pass in all of:
     * perspective transform (fixed)

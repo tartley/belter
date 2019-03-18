@@ -1,3 +1,4 @@
+from collections import defaultdict
 import struct
 from unittest.mock import call, Mock, patch
 
@@ -117,13 +118,19 @@ def test_add_item():
 
 @patch('belter.render.moderngl')
 def test_draw(_):
-    item1 = object()
-    item2 = object()
+    item1 = Mock(x=1, y=2)
+    item2 = Mock(x=3, y=4)
     world = World()
     world.items = [item1, item2]
     render = Render(world)
-    vao1 = Mock()
-    vao2 = Mock()
+    render.shader = defaultdict(Mock)
+    positions = []
+    def save_positions():
+        positions.append(
+            render.shader['item_pos'].value
+        )
+    vao1 = Mock(render=Mock(side_effect=save_positions))
+    vao2 = Mock(render=Mock(side_effect=save_positions))
     render.vaos = {
         id(item1): vao1,
         id(item2): vao2,
@@ -133,5 +140,9 @@ def test_draw(_):
 
     assert vao1.render.call_args == call()
     assert vao2.render.call_args == call()
+    assert positions == [
+        (1, 2),
+        (3, 4),
+    ]
     assert render.ctx.finish.call_args == call()
 

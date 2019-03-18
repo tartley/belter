@@ -5,6 +5,7 @@ ignore =
     E301 # expected 1 blank line, found 0
     E302 # expected 2 blank lines
     E305 # expected 2 blank lines after class
+    E306 # expected 1 blank line before a nested def
     E731 # do not assign a lambda expression, use a def
     W391 # blank line at end of file
 
