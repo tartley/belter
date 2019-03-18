@@ -2,7 +2,13 @@ from colortuple import Color
 
 from py2d.Math import Polygon, Vector
 
-class Ship:
+class Item:
+
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+class Ship(Item):
     shape = Polygon.from_pointlist([
         Vector(+0.0, +0.8),
         Vector(-0.5, -0.8),
@@ -10,7 +16,7 @@ class Ship:
     ])
     color = Color(50, 100, 200)
 
-class Asteroid:
+class Asteroid(Item):
     shape = Polygon.from_pointlist([
         Vector(+0.0, -0.6),
         Vector(-0.5, +0.6),
