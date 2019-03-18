@@ -59,13 +59,15 @@ class Render:
         )
 
     def pack_indices(self, item):
-        assert len(item.shape) == 3
+        assert len(item.shape) < 256 # the '3B' arg
+        assert len(item.shape) == 3 # the '0, 1, 2' args
         return struct.pack(
             '3B',
             0, 1, 2,
         )
 
     def get_vao(self, verts, colors, indices):
+        assert len(verts) < 256
         return self.ctx.vertex_array(
             self.shader,
             [
