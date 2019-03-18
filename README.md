@@ -38,10 +38,10 @@ That's all that works right now.
 
 ## TODO
 
-* colors passed in as unsigned bytes?
-* screenshot in readme?
+### features
 * draw shapes in correct position
 * draw shapes in correct orientation
+* screenshot in readme?
 * camera. Hmm. How to pass in all of:
     * perspective transform (fixed)
     * camera transform (per frame)
@@ -50,16 +50,33 @@ That's all that works right now.
 * screenshot
 * shapes may consist of polygons, which are tessellated into triangles
 * screenshot
+* shapes are also added to pymunk
+* world.update calls pymunk.step
+* pymunk.step results are used to update items' position and orientation
+* starfield v1
+* bodies are rendered as an outline, with a black interior
+* keys to control ship
+* Both
+  * ctx.vertex_array index_element_size arg and
+  * indices struct.pack 1st arg
+  should grow as number of indices exceeds 255, 65535.
+  Maybe get_vao should decide on element size, and pass it in?
+  Or, better, they each call an 'element_size_int' and 'element_size_char'?
+### performance
 * performance test
-* performance: try a padding byte 'x' in the struct pack.
-* performance: render should store vao keyed on id(shape), not id(item),
+* Render.get_packed_vertices: struct.pack on asterisked iterable must be slow.
+* pad buffers to be align on 4-byte boundary. (eg 4th color byte)
+* Performance: single interleaved buffer?
+  Was faster in 2013, for cache reasons.
+  Comment suggested it no longer matters since 2016.
+* waiting at end of Render.draw is probably suboptimal.
+  Can we wait before rendering the next frame, instead?
+### design
+* render should store vao keyed on id(shape), not id(item),
   then multiple items could use same vao,
   either simultaneously or sequentially.
-* ctx.vertex_array index_element_size arg should sync with indices struct.pack
-  arg. Maybe get_vao should decide on element size, and pass it in?
-  Or they each call a 'element_size_int' and 'element_size_char'?
-* Read about interleaved rather than separate vert/color buffers?
-* screenshot
+* self documenting makefile
+### deployment
 * Produce a linux executable:
   * generate requirements/main.txt, using a fresh virtualenv
   * Install our code using `pip install --no-deps .`
@@ -68,20 +85,7 @@ That's all that works right now.
 * e2e test which builds the executable, runs with --selftest
 * put source into a src folder
   install using `pip install --no-deps -e .`
-* shapes are also added to pymunk
-* world.update calls pymunk.step
-* pymunk.step results are used to update items' position and orientation
-* starfield v1
-* bodies are rendered as an outline, with a black interior
-* Render.get_packed_vertices: struct.pack on asterisked iterable must be slow.
-* keys to control ship
-* self documenting makefile
 * copy stuff back into project template
-* executable
-* github release
-* e2e test of building executable and running it in self-test mode
-* waiting at end of Render.draw is probably suboptimal.
-  Can we wait before rendering the previous frame, instead?
 * print diagnostics
     * program version
     * OS info
@@ -106,8 +110,8 @@ Put high value asteroids into the fab intake?
       Implies same amount for each level.
       So maybe harder levels make high value asteroids harder to come by?
     * need to find all high value asteroids?
-      Levels could have varying amounts of high value asteroids.
-
+      Better, I think.
+      Levels could then have varying amounts of high value asteroids.
   * filling it, or collecting all high value asteroids, unlocks next level?
 
 # Decisions Made
@@ -122,8 +126,7 @@ But this means we can't use main engine for thrusting against the thing
 we've landed on / docked with.
 
 One solution is, after landing, the whole ship (or just its engines?)
-gimbal around 180 degrees on the landing gear after. Then the main engines are
-pointing at the sky.
+gimbal around 180 degrees. Then the main engines are pointing at the sky.
 
 But it seems simpler, both gamedev wise and in real life, in a low grav
 environment, to land on (or dock with) things nose-first:
@@ -135,11 +138,14 @@ up at the bottom by unfolding landing gear. Which is cool anyhow:
 
     ____X____
 
+Then main engines can thrust against the asteroid we've landed on. Cool!
+
 This is worse than a thrust-style tether, in that wiggling through gaps
-isn't as hair-raising. But it is better in that the asteroid moves in freefall,
-as opposed to a tethered spiral, and hence it's path can be more
-precisely and meaningfully predicted, both by the player, and by the game's
-HUD, for example in plotting orbits or estimated path to point of impact.
+with an asteroid in tow isn't as hair-raising. But it is better, in that the
+asteroid moves in freefall, as opposed to a tethered spiral, and hence its
+path can be more precisely and meaningfully predicted, both by the player, and
+by the game's HUD, for example in plotting orbits, predicted paths, or
+estimated points of impact.
 
 ## Framework
 
@@ -165,6 +171,8 @@ Figure out framework to use:
      * May be a little faster?
 Let's start with 1, but using as modern GL as we can.
 So no 'modelview' transform, use... er, whatever the equivalent is. Uniforms?
+Update: Have ended up doing 2 instead. ModernGL expects 3.3, and I wasn't
+brave enough to drop down to 3.0, fearing features I want might be missing.
 
 ## modern opengl 101
 
