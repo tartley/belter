@@ -16,3 +16,16 @@ def test_add_item_should_fire_event_on_add_item():
 
     assert listener.call_args == call('item1')
 
+def test_update_should_update_all_items():
+    item1 = Mock()
+    item2 = Mock()
+    world = World()
+    world.add_item(item1)
+    world.add_item(item2)
+    dt = 0.1
+
+    world.update(dt)
+
+    assert item1.update.call_args == call()
+    assert item2.update.call_args == call()
+

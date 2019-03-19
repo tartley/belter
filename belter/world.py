@@ -11,5 +11,6 @@ class World:
         self.on_add_item(item)
 
     def update(self, _):
-        pass
+        for item in self.items:
+            item.update()
 
