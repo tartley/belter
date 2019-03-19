@@ -1,4 +1,5 @@
 from colortuple import Color
+import random
 
 from py2d.Math import Polygon, Vector
 
@@ -7,6 +8,12 @@ class Item:
     def __init__(self, x, y):
         self.x = x
         self.y = y
+        self.dx = (random.random() - 0.5) / 1000
+        self.dy = (random.random() - 0.5) / 1000
+
+    def update(self):
+        self.x += self.dx
+        self.y += self.dy
 
 class Ship(Item):
     shape = Polygon.from_pointlist([
