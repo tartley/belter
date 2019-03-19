@@ -16,10 +16,14 @@ class Window:
     def create(self, title):
         self.pygwin = pyglet.window.Window(
             config=pyglet.gl.Config(major_version=3, minor_version=3),
-            caption=title, fullscreen=False, vsync=False
+            caption=title, fullscreen=False, resizable=True, vsync=False
         )
         print(self.pygwin.context.get_info().get_version())
         self.pygwin.set_handler('on_key_press', self.on_key_press)
+
+    def resize(self, render, width, height):
+        render.set_viewport(width, height)
+        return EVENT_HANDLED
 
     def _get_current_screen_index(self):
         current = self.pygwin.screen

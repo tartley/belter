@@ -21,11 +21,21 @@ def test_create(mypyglet):
             caption='mytitle',
             config=mypyglet.gl.Config(),
             fullscreen=False,
+            resizable=True,
             vsync=False
         )
     pygwin = mypyglet.window.Window()
     assert pygwin.set_handler.call_args == \
         call('on_key_press', window.on_key_press)
+
+def test_resize():
+    window = Window()
+    render = Mock()
+
+    actual = window.resize(render, 111, 222)
+
+    assert actual == EVENT_HANDLED
+    assert render.set_viewport.call_args == call(111, 222)
 
 def setup_toggle_fullscreen(screens, current):
 

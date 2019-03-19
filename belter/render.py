@@ -31,8 +31,8 @@ class Render:
         self.shader = None
         world.on_add_item.subscribe(self.add_item)
 
-    def set_viewport(self, xmin, ymin, xmax, ymax):
-        self.ctx.viewport = xmin, ymin, xmax, ymax
+    def set_viewport(self, width, height):
+        self.ctx.viewport = 0, 0, width, height
 
     def compile_shader(self):
         self.shader = self.ctx.program(

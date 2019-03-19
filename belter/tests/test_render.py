@@ -30,8 +30,8 @@ def test_constructor_should_subscribe_to_world_on_add_item(_):
 
 def test_set_viewport():
     render = Render(World())
-    render.set_viewport(1, 2, 3, 4)
-    assert render.ctx.viewport == (1, 2, 3, 4)
+    render.set_viewport(11, 222)
+    assert render.ctx.viewport == (0, 0, 11, 222)
 
 @patch('belter.render.moderngl')
 def test_compile_shader(my_moderngl):
