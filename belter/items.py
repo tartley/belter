@@ -31,6 +31,6 @@ class Asteroid(Item):
     ])
     def __init__(self, *args):
         super().__init__(*args)
-        l = random.randint(25, 100)
-        self.color = Color(l, l, l)
+        light = random.randint(25, 100)
+        self.color = Color(light, light, light)
 
