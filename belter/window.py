@@ -50,15 +50,10 @@ class Window:
             self.keys[symbol]()
             return EVENT_HANDLED
 
-    def get_fps_display(self):
-        return pyglet.window.FPSDisplay(self.pygwin)
-
     def clear(self):
         self.pygwin.clear()
 
     def set_handler(self, event_name, handler=None):
-        if handler is None:
-            handler = lambda *_, **__: EVENT_HANDLED
         self.pygwin.set_handler(event_name, handler)
 
     def main_loop(self, world):

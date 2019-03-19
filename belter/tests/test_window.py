@@ -94,16 +94,6 @@ def test_on_key_press_unrecognized():
     actual = window.on_key_press("unrecognized", "modifiers")
     assert actual is None
 
-@patch('belter.window.pyglet.window.FPSDisplay')
-def test_get_fps_display(my_fps_display):
-    window = Window()
-    window.pygwin = Mock()
-
-    actual = window.get_fps_display()
-
-    assert actual == my_fps_display.return_value
-    assert my_fps_display.call_args == call(window.pygwin)
-
 def test_clear():
     window = Window()
     window.pygwin = Mock()
