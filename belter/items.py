@@ -29,5 +29,8 @@ class Asteroid(Item):
         Vector(-0.5, +0.6),
         Vector(+0.5, +0.6),
     ])
-    color = Color(50, 50, 50)
+    def __init__(self, *args):
+        super().__init__(*args)
+        l = random.randint(25, 100)
+        self.color = Color(l, l, l)
 
