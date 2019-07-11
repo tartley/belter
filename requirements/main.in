@@ -1,5 +1,5 @@
 colortuple~=1.0.2
 moderngl~=5.5.0
 pyglet~=1.4.0b1
-git+git://github.com/sseemayer/Py2D.git
+py2d-fixed~=0.1
 

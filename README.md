@@ -48,10 +48,13 @@ That's all that works right now.
 ## TODO
 
 ### features
-* move per frame
-* draw shapes in correct orientation
-* rotate per frame
+* entity size
+* entity offset
+* entity orientation
 * screenshot in readme?
+* camera offset
+* camera orientation
+* move things around on each frame
 * camera. Hmm. How to pass in all of:
     * perspective transform (fixed)
     * camera transform (per frame)
@@ -65,6 +68,7 @@ That's all that works right now.
 * pymunk.step results are used to update items' position and orientation
 * starfield v1
 * bodies are rendered as an outline, with a black interior
+* some sort of glow thing like gravitar2?
 * keys to control ship
 * Both
   * ctx.vertex_array index_element_size arg and
