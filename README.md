@@ -102,7 +102,7 @@ That's all that works right now.
     * opengl version
 * prints should be logging to a file instead
 
-## Gameplay
+# Discussion
 
 ### Goals
 
@@ -118,12 +118,10 @@ Put high value asteroids into the fab intake?
     * need to fill the fab?
       Implies same amount for each level.
       So maybe harder levels make high value asteroids harder to come by?
+      But that seems unrewarding.
     * need to find all high value asteroids?
       Better, I think.
       Levels could then have varying amounts of high value asteroids.
-  * filling it, or collecting all high value asteroids, unlocks next level?
-
-# Decisions Made
 
 ### Landing / Docking
 
@@ -199,7 +197,7 @@ screen space (pixel co-ordinates)
 * What happens to our current code when we request opengl 4.5?
     * fps display raises errors calling gl fn that doesn't exist
       Fixable by removing fps_display
-    * default window.on_resize raises errors calling gl fn that doesn't exist
+    * default `window.on_resize` raises errors calling gl fn that doesn't exist
       Fixable by adding our own on_resize
     * Window is black until exiting. Is it not flipping?
       We need to wait for draw operations to finish after each frame
