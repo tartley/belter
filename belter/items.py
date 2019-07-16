@@ -1,3 +1,5 @@
+from random import uniform
+
 from colortuple import Color
 
 from py2d.Math import Polygon, Vector
@@ -11,8 +13,8 @@ class Entity:
         self.y = y
         self.shape = shape
         self.color = color
-        self.dx = 0
-        self.dy = 0
+        self.dx = uniform(-0.005, 0.005)
+        self.dy = uniform(-0.005, 0.005)
 
     def update(self):
         self.x += self.dx
