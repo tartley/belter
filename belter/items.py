@@ -22,9 +22,9 @@ def create_ship(x, y):
     return Entity(
         x, y,
         shape=Polygon.from_pointlist([
-            Vector(+0.0, +0.8),
-            Vector(-0.5, -0.8),
-            Vector(+0.5, -0.8),
+            Vector(+0, +8),
+            Vector(-5, -8),
+            Vector(+5, -8),
         ]),
         color=Color(50, 100, 200),
     )
@@ -33,9 +33,9 @@ def create_asteroid(x, y):
     return Entity(
         x, y,
         shape=Polygon.from_pointlist([
-            Vector(+0.0, -0.6),
-            Vector(-0.5, +0.6),
-            Vector(+0.5, +0.6),
+            Vector(+0, -6),
+            Vector(-5, +6),
+            Vector(+5, +6),
         ]),
         color=Color(50, 150, 100),
     )
