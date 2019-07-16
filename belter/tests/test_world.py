@@ -1,31 +1,37 @@
 from unittest.mock import call, Mock
 
+from ..items import create_ship
 from ..world import World
 
 def test_add_item_should_add_to_items():
     world = World()
-    world.add_item('item1')
-    assert world.items == {'item1'}
+    ship = create_ship(1, 2)
+
+    world.add_item(ship)
+
+    assert world.items == {ship}
 
 def test_add_item_should_fire_event_on_add_item():
     listener = Mock()
     world = World()
+    ship = create_ship(1, 2)
     world.on_add_item.subscribe(listener)
 
-    world.add_item('item1')
+    world.add_item(ship)
 
-    assert listener.call_args == call('item1')
+    assert listener.call_args == call(ship)
 
 def test_update_should_update_all_items():
-    item1 = Mock()
-    item2 = Mock()
+    ship1 = create_ship(1, 2)
+    ship1.update = Mock()
+    ship2 = create_ship(3, 4)
+    ship2.update = Mock()
     world = World()
-    world.add_item(item1)
-    world.add_item(item2)
-    dt = 0.1
+    world.add_item(ship1)
+    world.add_item(ship2)
 
-    world.update(dt)
+    world.update(None) # dummy dt arg
 
-    assert item1.update.call_args == call()
-    assert item2.update.call_args == call()
+    assert ship1.update.call_args == call()
+    assert ship2.update.call_args == call()
 

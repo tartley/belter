@@ -17,8 +17,8 @@ def main():
     window.set_handler('on_draw', render.draw)
     window.set_handler('on_resize', partial(window.resize, render))
 
-    for item in level.initial_items():
-        world.add_item(item)
+    for entity in level.initial_items():
+        world.add_item(entity)
     window.main_loop(world)
 
 if __name__ == "__main__":

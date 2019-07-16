@@ -5,6 +5,7 @@ from unittest.mock import call, Mock, patch
 from colortuple import Color
 from py2d.Math import Polygon, Vector
 
+from ..items import create_ship
 from ..render import Render
 from ..world import World
 
@@ -23,10 +24,11 @@ def test_constructor_should_subscribe_to_world_on_add_item(_):
         add_item = Mock()
     world = World()
     render = MyRender(world)
+    ship = create_ship(1, 2)
 
-    world.add_item('item1')
+    world.add_item(ship)
 
-    assert render.add_item.call_args == call('item1')
+    assert render.add_item.call_args == call(ship)
 
 def test_set_viewport():
     render = Render(World())

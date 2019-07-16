@@ -1,11 +1,13 @@
-from ..items import Asteroid, Ship
+from ..items import Entity
 from ..level import initial_items
 
 def test_initial_items():
     actual = initial_items()
 
     actuals = list(actual)
-    assert len(actuals) > 0
-    assert sum(isinstance(item, Ship) for item in actuals) == 1
-    assert sum(isinstance(item, Asteroid) for item in actuals) >= 1
+    assert len(actuals) > 1
+    for entity in actuals:
+        assert isinstance(entity, Entity)
+        assert isinstance(entity.x, (int, float))
+        assert isinstance(entity.y, (int, float))
 
