@@ -76,6 +76,8 @@ That's all that works right now.
   should grow as number of indices exceeds 255, 65535.
   Maybe get_vao should decide on element size, and pass it in?
   Or, better, they each call an 'element_size_int' and 'element_size_char'?
+* replace euler integration with leapfrog or velocity verlet method.
+  https://gamedev.stackexchange.com/questions/15708/how-can-i-implement-gravity
 ### performance
 * performance test
 * Render.get_packed_vertices: struct.pack on asterisked iterable must be slow.

@@ -18,8 +18,8 @@ class Window:
             config=pyglet.gl.Config(major_version=3, minor_version=3),
             caption=title, fullscreen=True, resizable=True, vsync=True
         )
-        print(self.pygwin.context.get_info().get_version())
         self.pygwin.set_handler('on_key_press', self.on_key_press)
+        return self.pygwin.context.get_info().get_version()
 
     def resize(self, render, width, height):
         render.set_viewport(width, height)
