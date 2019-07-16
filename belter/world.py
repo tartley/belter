@@ -10,7 +10,7 @@ class World:
         self.items.add(item)
         self.on_add_item(item)
 
-    def update(self, _):
+    def update(self, dt):
         for item in self.items:
-            item.update()
+            item.update(dt)
 

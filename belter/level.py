@@ -3,16 +3,17 @@ from math import cos, pi, sin
 from .items import create_asteroid, create_ship
 
 def initial_items():
-    yield create_ship(0, 0)
+    yield create_ship(4, 0)
     NUM = 1000 # number of asteroids
-    spread = 100 # radius of circle
-    RANGE = 10 # how many spiral cycles
+    radius = 80 # radius of circle
+    r_factor = 0.999
     theta = 0
-    for num in range(NUM + 1):
+    dtheta = 2 * pi / NUM * 4
+    for num in range(NUM):
         yield create_asteroid(
-            spread * sin(theta), spread * cos(theta),
+            radius * sin(theta), radius * cos(theta),
             1 * cos(theta), -1 * sin(theta),
         )
-        theta += pi * 2 / NUM * RANGE
-        spread *= 0.999
+        theta += dtheta
+        radius *= r_factor
 

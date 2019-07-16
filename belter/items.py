@@ -17,13 +17,21 @@ class Entity:
         self.shape = shape
         self.color = color
 
-    def update(self):
-        self.x += self.dx
-        self.y += self.dy
+    def update(self, dt):
+        # force due to gravity
         distance2 = self.x * self.x + self.y * self.y
         theta = atan2(self.y, self.x)
-        self.dx -= 0.01 * cos(theta) / min(distance2, 1)
-        self.dy -= 0.01 * sin(theta) / min(distance2, 1)
+        fx = (-400 * cos(theta) / distance2) if distance2 > 10 else 0
+        fy = (-400 * sin(theta) / distance2) if distance2 > 10 else 0
+        # accelleration
+        ddx = fx
+        ddy = fy
+        # position
+        self.x += dt * self.dx
+        self.y += dt * self.dy
+        # velocity
+        self.dx += dt * ddx
+        self.dy += dt * ddy
 
 def create_ship(x, y):
     return Entity(
