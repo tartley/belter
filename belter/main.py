@@ -1,5 +1,7 @@
 from functools import partial
 
+from pyglet import clock
+
 from . import level
 from .render import Render
 from .window import Window
@@ -13,6 +15,7 @@ def main():
 
     render = Render(world)
     render.compile_shader()
+    clock.schedule_interval(render.print_frames, 1)
 
     window.set_handler('on_draw', render.draw)
     window.set_handler('on_resize', partial(window.resize, render))

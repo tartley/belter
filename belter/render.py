@@ -31,6 +31,7 @@ class Render:
         self.vaos = {}
         self.shader = None
         world.on_add_item.subscribe(self.add_item)
+        self.frames = 0
 
     def set_viewport(self, width, height):
         self.ctx.viewport = 0, 0, width, height
@@ -90,6 +91,10 @@ class Render:
             self.pack_indices(item),
         )
 
+    def print_frames(self, _): # dummy dt arg
+        print(self.frames)
+        self.frames = 0
+
     def draw(self):
         self.ctx.clear()
         self.shader['zoom'].value = 0.01
@@ -97,4 +102,5 @@ class Render:
             self.shader['item_pos'].value = item.x, item.y
             self.vaos[id(item)].render()
         self.ctx.finish()
+        self.frames += 1
 

@@ -16,7 +16,7 @@ class Window:
     def create(self, title):
         self.pygwin = pyglet.window.Window(
             config=pyglet.gl.Config(major_version=3, minor_version=3),
-            caption=title, fullscreen=True, resizable=True, vsync=False
+            caption=title, fullscreen=True, resizable=True, vsync=True
         )
         print(self.pygwin.context.get_info().get_version())
         self.pygwin.set_handler('on_key_press', self.on_key_press)
