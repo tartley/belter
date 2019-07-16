@@ -12,7 +12,9 @@ def initial_items():
     for num in range(NUM):
         yield create_asteroid(
             radius * sin(theta), radius * cos(theta),
-            1 * cos(theta), -1 * sin(theta),
+            dx=1 * cos(theta),
+            dy=-1 * sin(theta),
+            drot=theta/10,
         )
         theta += dtheta
         radius *= r_factor

@@ -9,11 +9,13 @@ DEFAULT_COLOR = Color(50, 50, 50)
 
 class Entity:
 
-    def __init__(self, x, y, dx=0, dy=0, shape=None, color=DEFAULT_COLOR):
+    def __init__(self, x, y, dx=0, dy=0, rot=0, drot=0, shape=None, color=DEFAULT_COLOR):
         self.x = x
         self.y = y
         self.dx = dx
         self.dy = dy
+        self.rot = rot
+        self.drot = drot
         self.shape = shape
         self.color = color
 
@@ -32,6 +34,8 @@ class Entity:
         # velocity
         self.dx += dt * ddx
         self.dy += dt * ddy
+        # orientation
+        self.rot += dt * self.drot
 
 def create_ship(x, y):
     return Entity(
@@ -44,16 +48,16 @@ def create_ship(x, y):
         color=Color(50, 100, 200),
     )
 
-def create_asteroid(x, y, dx=None, dy=None):
+def create_asteroid(x, y, **kwargs):
     bright = randint(20, 50)
     return Entity(
         x, y,
-        dx=dx, dy=dy,
         shape=Polygon.from_pointlist([
             Vector(+0, -6),
             Vector(-5, +6),
             Vector(+5, +6),
         ]),
-        color=Color(bright, 3 * bright, 2 * bright),
+        color=Color(1 * bright, 3 * bright, 2 * bright),
+        **kwargs,
     )
 

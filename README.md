@@ -48,17 +48,11 @@ That's all that works right now.
 ## TODO
 
 ### features
-* entity size
-* entity offset
-* entity orientation
-* screenshot in readme?
-* camera offset
-* camera orientation
-* move things around on each frame
-* camera. Hmm. How to pass in all of:
+* camera.
     * perspective transform (fixed)
-    * camera transform (per frame)
-    * item transform (per primitive)
+    * camera zoom (per frame)
+    * camera offset (per frame)
+    * camera orientation (per frame)
     * where should we do window resize handler for realz?
 * screenshot
 * shapes may consist of polygons, which are tessellated into triangles
@@ -71,16 +65,15 @@ That's all that works right now.
 * some sort of glow thing like gravitar2?
 * keys to control ship
 * Both
-  * ctx.vertex_array index_element_size arg and
+  * `ctx.vertex_array` `index_element_size` arg and
   * indices struct.pack 1st arg
   should grow as number of indices exceeds 255, 65535.
-  Maybe get_vao should decide on element size, and pass it in?
-  Or, better, they each call an 'element_size_int' and 'element_size_char'?
-* replace euler integration with leapfrog or velocity verlet method.
-  https://gamedev.stackexchange.com/questions/15708/how-can-i-implement-gravity
+  Maybe `get_vao` should decide on element size, and pass it in?
+  Or, better, they each call an `element_size_int` and `element_size_char`?
 ### performance
 * performance test
-* Render.get_packed_vertices: struct.pack on asterisked iterable must be slow.
+  * we seem to get periodic slowdowns, what's that about?
+* `Render.get_packed_vertices`: struct.pack on asterisked iterable must be slow.
 * pad buffers to be align on 4-byte boundary. (eg 4th color byte)
 * Performance: single interleaved buffer?
   Was faster in 2013, for cache reasons.
@@ -204,7 +197,7 @@ clip space (normalized) (output of vertex shader)
 screen space (pixel co-ordinates)
 
 * What happens to our current code when we request opengl 4.5?
-    * fps_display raises errors calling gl fn that doesn't exist
+    * fps display raises errors calling gl fn that doesn't exist
       Fixable by removing fps_display
     * default window.on_resize raises errors calling gl fn that doesn't exist
       Fixable by adding our own on_resize

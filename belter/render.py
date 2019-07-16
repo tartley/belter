@@ -5,12 +5,19 @@ import moderngl
 VERTEX = '''\
 #version 330
 uniform vec2 item_pos;
+uniform float item_rot;
 uniform float zoom;
 in vec2 vert;
 in vec3 color_in;
 out vec3 color_vert;
 void main() {
-    gl_Position = vec4((item_pos + vert) * zoom, 0.0, 1.0);
+    vec2 vert_rot = vec2(
+        vert.x * cos(item_rot) - vert.y * sin(item_rot),
+        vert.y * cos(item_rot) + vert.x * sin(item_rot));
+    gl_Position = vec4(
+        (item_pos + vert_rot) * zoom,
+        0.0,
+        1.0);
     color_vert = color_in;
 }
 '''
@@ -100,6 +107,7 @@ class Render:
         self.shader['zoom'].value = 0.01
         for item in self.world.items:
             self.shader['item_pos'].value = item.x, item.y
+            self.shader['item_rot'].value = item.rot
             self.vaos[id(item)].render()
         self.ctx.finish()
         self.frames += 1
