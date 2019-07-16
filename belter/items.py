@@ -1,5 +1,5 @@
 from math import atan2, cos, sin
-from random import randint, uniform
+from random import randint
 
 from colortuple import Color
 
@@ -35,7 +35,7 @@ class Entity:
 
 def create_ship(x, y):
     return Entity(
-        x, y + 1,
+        x, y,
         shape=Polygon.from_pointlist([
             Vector(+0, +8),
             Vector(-5, -8),

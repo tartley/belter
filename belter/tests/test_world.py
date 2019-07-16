@@ -29,9 +29,10 @@ def test_update_should_update_all_items():
     world = World()
     world.add_item(ship1)
     world.add_item(ship2)
+    dt = 0.123
 
-    world.update(None) # dummy dt arg
+    world.update(dt)
 
-    assert ship1.update.call_args == call()
-    assert ship2.update.call_args == call()
+    assert ship1.update.call_args == call(0.123)
+    assert ship2.update.call_args == call(0.123)
 

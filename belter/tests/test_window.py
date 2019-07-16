@@ -20,7 +20,7 @@ def test_create(mypyglet):
         call(
             caption='mytitle',
             config=mypyglet.gl.Config(),
-            fullscreen=False,
+            fullscreen=True,
             resizable=True,
             vsync=False
         )
