@@ -9,7 +9,9 @@ DEFAULT_COLOR = Color(50, 50, 50)
 
 class Entity:
 
-    def __init__(self, x, y, dx=0, dy=0, rot=0, drot=0, shape=None, color=DEFAULT_COLOR):
+    def __init__(
+        self, x, y, dx=0, dy=0, rot=0, drot=0, shape=None, color=DEFAULT_COLOR
+    ):
         self.x = x
         self.y = y
         self.dx = dx

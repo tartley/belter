@@ -1,6 +1,6 @@
 from unittest.mock import call, Mock
 
-from ..items import create_ship
+from ..entities import create_ship
 from ..world import World
 
 def test_add_item_should_add_to_items():

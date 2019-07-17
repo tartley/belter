@@ -1,6 +1,6 @@
 from math import cos, pi, sin
 
-from .items import create_asteroid, create_ship
+from .entities import create_asteroid, create_ship
 
 def initial_items():
     yield create_ship(4, 0)
@@ -14,7 +14,7 @@ def initial_items():
             radius * sin(theta), radius * cos(theta),
             dx=1 * cos(theta),
             dy=-1 * sin(theta),
-            drot=theta/10,
+            drot=theta / 10,
         )
         theta += dtheta
         radius *= r_factor

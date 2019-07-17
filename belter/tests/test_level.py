@@ -1,4 +1,4 @@
-from ..items import Entity
+from ..entities import Entity
 from ..level import initial_items
 
 def test_initial_items():

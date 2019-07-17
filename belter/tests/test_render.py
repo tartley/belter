@@ -5,7 +5,7 @@ from unittest.mock import call, Mock, patch
 from colortuple import Color
 from py2d.Math import Polygon, Vector
 
-from ..items import create_ship
+from ..entities import create_ship
 from ..render import Render
 from ..world import World
 

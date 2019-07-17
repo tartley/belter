@@ -1,7 +1,7 @@
 from py2d.Math import Polygon
 from colortuple import Color
 
-from ..items import create_asteroid, create_ship
+from ..entities import create_asteroid, create_ship
 
 def test_ship():
     actual = create_ship(1, 2)
