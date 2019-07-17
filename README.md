@@ -42,12 +42,24 @@ That's all that works right now.
 ## TODO
 
 ### features
-* camera.
-    * perspective transform (fixed)
-    * camera zoom (per frame)
-    * camera offset (per frame)
-    * camera orientation (per frame)
-    * where should we do window resize handler for realz?
+* perspective transform (fixed)
+  * Do the perspective transform using a matrix set `on_resize`
+      window.on_resize calls
+      core.on_win_resize sets
+      render.win_size
+          which calcs a proj matrix
+              use some opengl 'ortho' call to generate?
+                check out moderngl examples
+              or py2d
+              or some other dependency :-(
+              or just construct it manually?
+          which is set in the uniform at start of render
+* camera zoom, offset, orientation (per frame)
+  * requires a camera model object
+  * remove existing 'zoom'
+  * redo using a view matrix
+* consider replacing entity position/orientation with a model matrix
+* new pyglet and pyopengl are out, now compatible with each other
 * shapes are also added to pymunk
 * shapes need offsetting to their center of mass
 * shapes may consist of polygons, which are tessellated into triangles
