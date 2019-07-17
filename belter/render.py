@@ -13,7 +13,7 @@ out vec3 color_vert;
 void main() {
     vec2 vert_rot = vec2(
         vert.x * cos(entity_rot) - vert.y * sin(entity_rot),
-        vert.y * cos(entity_rot) + vert.x * sin(entity_rot));
+        vert.x * sin(entity_rot) + vert.y * cos(entity_rot));
     gl_Position = vec4(
         (entity_pos + vert_rot) * zoom,
         0.0,

@@ -3,7 +3,7 @@ from math import cos, pi, sin
 from .entities import create_asteroid, create_ship
 
 def initial_entities():
-    yield create_ship(4, 0)
+    yield create_ship(0, 0, drot=10)
     NUM = 1000 # number of asteroids
     radius = 80 # radius of circle
     r_factor = 0.999

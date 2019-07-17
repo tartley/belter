@@ -49,6 +49,7 @@ That's all that works right now.
     * camera orientation (per frame)
     * where should we do window resize handler for realz?
 * shapes are also added to pymunk
+* shapes need offsetting to their center of mass
 * shapes may consist of polygons, which are tessellated into triangles
 * screenshot
 * starfield v1
@@ -61,6 +62,7 @@ That's all that works right now.
   should grow as number of indices exceeds 255, 65535.
   Maybe `get_vao` should decide on element size, and pass it in?
   Or, better, they each call an `element_size_int` and `element_size_char`?
+* A large asteroid? Smaller ones orbit it?
 ### performance
 * performance test
   * we seem to get periodic slowdowns, what's that about?
@@ -83,7 +85,6 @@ That's all that works right now.
 * render should store vao keyed on id(shape), not id(entity),
   then multiple entities could use same vao,
   either simultaneously or sequentially.
-* self documenting makefile
 ### deployment
 * Produce a linux executable:
   * generate requirements/main.txt, using a fresh virtualenv

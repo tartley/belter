@@ -25,8 +25,8 @@ class Entity:
         # force due to gravity
         distance2 = self.x * self.x + self.y * self.y
         theta = atan2(self.y, self.x)
-        fx = (-400 * cos(theta) / distance2) if distance2 > 10 else 0
-        fy = (-400 * sin(theta) / distance2) if distance2 > 10 else 0
+        fx = (-400 * cos(theta) / distance2) if distance2 > 3 else 0
+        fy = (-400 * sin(theta) / distance2) if distance2 > 3 else 0
         # accelleration
         ddx = fx
         ddy = fy
@@ -39,7 +39,7 @@ class Entity:
         # orientation
         self.rot += dt * self.drot
 
-def create_ship(x, y):
+def create_ship(x, y, **kwargs):
     return Entity(
         x, y,
         shape=Polygon.from_pointlist([
@@ -48,6 +48,7 @@ def create_ship(x, y):
             Vector(+5, -8),
         ]),
         color=Color(50, 100, 200),
+        **kwargs,
     )
 
 def create_asteroid(x, y, **kwargs):
