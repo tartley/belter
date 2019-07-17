@@ -19,16 +19,16 @@ def test_constructor(my_moderngl):
     assert render.shader is None
 
 @patch('belter.render.moderngl')
-def test_constructor_should_subscribe_to_world_on_add_item(_):
+def test_constructor_should_subscribe_to_world_on_add_entity(_):
     class MyRender(Render):
-        add_item = Mock()
+        add_entity = Mock()
     world = World()
     render = MyRender(world)
     ship = create_ship(1, 2)
 
-    world.add_item(ship)
+    world.add_entity(ship)
 
-    assert render.add_item.call_args == call(ship)
+    assert render.add_entity.call_args == call(ship)
 
 def test_set_viewport():
     render = Render(World())
@@ -53,20 +53,20 @@ def get_triangle():
 
 def test_pack_verts():
     render = Render(World())
-    item = Mock(shape=get_triangle())
+    entity = Mock(shape=get_triangle())
 
-    actual = render.pack_verts(item)
+    actual = render.pack_verts(entity)
 
     assert actual == struct.pack('6f', 1.1, 2.2, 3.3, 4.4, 5.5, 6.6)
 
 def test_pack_colors():
     render = Render(World())
-    item = Mock(
+    entity = Mock(
         shape=get_triangle(),
         color=Color(11, 22, 33, 44),
     )
 
-    actual = render.pack_colors(item)
+    actual = render.pack_colors(entity)
 
     assert actual == struct.pack(
         '9B',
@@ -77,10 +77,10 @@ def test_pack_colors():
 
 def test_pack_indices():
     render = Render(World())
-    item = Mock()
-    item.shape = [1, 2, 3]
+    entity = Mock()
+    entity.shape = [1, 2, 3]
 
-    actual = render.pack_indices(item)
+    actual = render.pack_indices(entity)
 
     assert actual == struct.pack('3B', 0, 1, 2)
 
@@ -107,40 +107,40 @@ def test_get_vao():
         call('indices'),
     ]
 
-def test_add_item():
+def test_add_entity():
     render = Render(World())
     render.get_vao = Mock(return_value='vao')
     render.pack_verts = Mock(return_value='verts')
     render.pack_colors = Mock(return_value='colors')
     render.pack_indices = Mock(return_value='indices')
-    item = Mock()
+    entity = Mock()
 
-    render.add_item(item)
+    render.add_entity(entity)
 
-    assert render.vaos == {id(item): 'vao'}
+    assert render.vaos == {id(entity): 'vao'}
     assert render.get_vao.call_args == call('verts', 'colors', 'indices')
-    assert render.pack_verts.call_args == call(item)
-    assert render.pack_colors.call_args == call(item)
-    assert render.pack_indices.call_args == call(item)
+    assert render.pack_verts.call_args == call(entity)
+    assert render.pack_colors.call_args == call(entity)
+    assert render.pack_indices.call_args == call(entity)
 
 @patch('belter.render.moderngl')
 def test_draw(_):
-    item1 = Mock(x=1, y=2)
-    item2 = Mock(x=3, y=4)
+    entity1 = Mock(x=1, y=2)
+    entity2 = Mock(x=3, y=4)
     world = World()
-    world.items = [item1, item2]
+    world.entities = [entity1, entity2]
     render = Render(world)
     render.shader = defaultdict(Mock)
     positions = []
     def save_positions():
         positions.append(
-            render.shader['item_pos'].value
+            render.shader['entity_pos'].value
         )
     vao1 = Mock(render=Mock(side_effect=save_positions))
     vao2 = Mock(render=Mock(side_effect=save_positions))
     render.vaos = {
-        id(item1): vao1,
-        id(item2): vao2,
+        id(entity1): vao1,
+        id(entity2): vao2,
     }
 
     render.draw()

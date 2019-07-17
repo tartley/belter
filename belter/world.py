@@ -3,14 +3,14 @@ from .event import Event
 class World:
 
     def __init__(self):
-        self.items = set()
-        self.on_add_item = Event()
+        self.entities = set()
+        self.on_add_entity = Event()
 
-    def add_item(self, item):
-        self.items.add(item)
-        self.on_add_item(item)
+    def add_entity(self, entity):
+        self.entities.add(entity)
+        self.on_add_entity(entity)
 
     def update(self, dt):
-        for item in self.items:
-            item.update(dt)
+        for entity in self.entities:
+            entity.update(dt)
 

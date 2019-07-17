@@ -80,8 +80,8 @@ That's all that works right now.
 ### design
 * Probably already needs a total redesign from a 'hexagonal' viewpoint.
   What are our business logic units?
-* render should store vao keyed on id(shape), not id(item),
-  then multiple items could use same vao,
+* render should store vao keyed on id(shape), not id(entity),
+  then multiple entities could use same vao,
   either simultaneously or sequentially.
 * self documenting makefile
 ### deployment
@@ -198,11 +198,11 @@ screen space (pixel co-ordinates)
 Separate arrays for verts & colors, vs one interleaved array?
 Am I going to want to use one buffer of vert positions
 with different buffers of colors? Sounds fun, but I don't think so:
-* I don't plan to have hordes of same shape / different color items
+* I don't plan to have hordes of same shape / different color entities
 * If I did, the memory savings of de-duping the verts is unimportant
 * But, the time saving of creating and sending to GPU is.
 * But but, if mutating the colors, I'd probably want to do that on
-  an item-by-item basis, rather than for all items in unison.
+  an entity-by-entity basis, rather than for all entities in unison.
 So, it sounds like a possible but unlikely future performance enhancement.
 Hence, ignore it for now.
 Conclusion: Use interleaved arrays, unless they prove awkward/slow to

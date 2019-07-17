@@ -3,32 +3,32 @@ from unittest.mock import call, Mock
 from ..entities import create_ship
 from ..world import World
 
-def test_add_item_should_add_to_items():
+def test_add_entity_should_add_to_entities():
     world = World()
     ship = create_ship(1, 2)
 
-    world.add_item(ship)
+    world.add_entity(ship)
 
-    assert world.items == {ship}
+    assert world.entities == {ship}
 
-def test_add_item_should_fire_event_on_add_item():
+def test_add_entity_should_fire_event_on_add_entity():
     listener = Mock()
     world = World()
     ship = create_ship(1, 2)
-    world.on_add_item.subscribe(listener)
+    world.on_add_entity.subscribe(listener)
 
-    world.add_item(ship)
+    world.add_entity(ship)
 
     assert listener.call_args == call(ship)
 
-def test_update_should_update_all_items():
+def test_update_should_update_all_entities():
     ship1 = create_ship(1, 2)
     ship1.update = Mock()
     ship2 = create_ship(3, 4)
     ship2.update = Mock()
     world = World()
-    world.add_item(ship1)
-    world.add_item(ship2)
+    world.add_entity(ship1)
+    world.add_entity(ship2)
     dt = 0.123
 
     world.update(dt)

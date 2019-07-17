@@ -1,8 +1,8 @@
 from ..entities import Entity
-from ..level import initial_items
+from ..level import initial_entities
 
-def test_initial_items():
-    actual = initial_items()
+def test_initial_entities():
+    actual = initial_entities()
 
     actuals = list(actual)
     assert len(actuals) > 1

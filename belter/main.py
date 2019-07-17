@@ -19,8 +19,8 @@ def main():
     window.set_handler('on_draw', render.draw)
     window.set_handler('on_resize', partial(window.resize, render))
 
-    for entity in level.initial_items():
-        world.add_item(entity)
+    for entity in level.initial_entities():
+        world.add_entity(entity)
 
     clock.schedule_interval(render.print_frames, 1)
     window.main_loop(world)
