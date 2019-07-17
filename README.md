@@ -2,18 +2,12 @@
 
 A videogame with 2D vector graphics, reminiscent of Asteroids.
 
-## new edits to be merged with diffs on t460:
-
-* performance: creating vert buffer
-  * try a single interleaved buffer
-  * try array module?
-  * try ctypes slice assignment from gloopy?
-  * try the answers from this page:
-    https://stackoverflow.com/questions/9940859/fastest-way-to-pack-a-list-of-floats-into-bytes-in-python/55081769#55081769
-
 ## Status
 
-Just started. A blank window.
+Just started. It isn't a game yet. Some triangles meander around the screen
+uncontrollably.
+
+![1,000 green triangles meander around at 60fps](screenshots/screenshot-01-1000triangles.png)
 
 ## Prerequisites
 
@@ -54,12 +48,9 @@ That's all that works right now.
     * camera offset (per frame)
     * camera orientation (per frame)
     * where should we do window resize handler for realz?
-* screenshot
+* shapes are also added to pymunk
 * shapes may consist of polygons, which are tessellated into triangles
 * screenshot
-* shapes are also added to pymunk
-* world.update calls pymunk.step
-* pymunk.step results are used to update items' position and orientation
 * starfield v1
 * bodies are rendered as an outline, with a black interior
 * some sort of glow thing like gravitar2?
@@ -74,13 +65,21 @@ That's all that works right now.
 * performance test
   * we seem to get periodic slowdowns, what's that about?
 * `Render.get_packed_vertices`: struct.pack on asterisked iterable must be slow.
-* pad buffers to be align on 4-byte boundary. (eg 4th color byte)
-* Performance: single interleaved buffer?
+  * try array module?
+  * try ctypes slice assignment from gloopy?
+  * try the answers from this page:
+    https://stackoverflow.com/questions/9940859/fastest-way-to-pack-a-list-of-floats-into-bytes-in-python/55081769#55081769
+  * pad buffers to 4-byte alignment. (eg 4th color byte)
+* single interleaved buffer?
   Was faster in 2013, for cache reasons.
   Comment suggested it no longer matters since 2016.
 * waiting at end of Render.draw is probably suboptimal.
   Can we wait before rendering the next frame, instead?
+  I tried it quickly, seems to actually reduce framerate by 10fps. Why?
+* pre-render all objects to a bitmap, draw that.
 ### design
+* Probably already needs a total redesign from a 'hexagonal' viewpoint.
+  What are our business logic units?
 * render should store vao keyed on id(shape), not id(item),
   then multiple items could use same vao,
   either simultaneously or sequentially.
@@ -90,17 +89,10 @@ That's all that works right now.
   * generate requirements/main.txt, using a fresh virtualenv
   * Install our code using `pip install --no-deps .`
 * make a github release
-* ask someone to download and double click
+* Ask someone to download and double click
+  Can I do this in an LXC?
 * e2e test which builds the executable, runs with --selftest
-* put source into a src folder
-  install using `pip install --no-deps -e .`
 * copy stuff back into project template
-* print diagnostics
-    * program version
-    * OS info
-    * python version info
-    * opengl version
-* prints should be logging to a file instead
 
 # Discussion
 
