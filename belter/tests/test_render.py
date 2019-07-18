@@ -30,10 +30,11 @@ def test_constructor_should_subscribe_to_world_on_add_entity(_):
 
     assert render.add_entity.call_args == call(ship)
 
-def test_set_viewport():
+def test_on_win_resize():
     render = Render(World())
-    render.set_viewport(11, 222)
+    render.on_win_resize(11, 222)
     assert render.ctx.viewport == (0, 0, 11, 222)
+    assert render.ortho_matrix = 0 # TODO
 
 @patch('belter.render.moderngl')
 def test_compile_shader(my_moderngl):

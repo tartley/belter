@@ -11,11 +11,13 @@ in vec2 vert;
 in vec3 color_in;
 out vec3 color_vert;
 void main() {
-    vec2 vert_rot = vec2(
-        vert.x * cos(entity_rot) - vert.y * sin(entity_rot),
-        vert.x * sin(entity_rot) + vert.y * cos(entity_rot));
+    mat2 rotation = mat2(
+        cos(entity_rot), sin(entity_rot),
+        -sin(entity_rot), cos(entity_rot)
+    );
+    vec2 vert_rotated = rotation * vert;
     gl_Position = vec4(
-        (entity_pos + vert_rot) * zoom,
+        (entity_pos + vert_rotated) * zoom,
         0.0,
         1.0);
     color_vert = color_in;
@@ -40,7 +42,7 @@ class Render:
         world.on_add_entity.subscribe(self.add_entity)
         self.frames = 0
 
-    def set_viewport(self, width, height):
+    def on_win_resize(self, width, height):
         self.ctx.viewport = 0, 0, width, height
 
     def compile_shader(self):

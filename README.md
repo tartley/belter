@@ -4,8 +4,8 @@ A videogame with 2D vector graphics, reminiscent of Asteroids.
 
 ## Status
 
-Just started. It isn't a game yet. Some triangles meander around the screen
-uncontrollably.
+Just started. It isn't a game yet. 1,000 green triangles meander around the
+screen uncontrollably.
 
 ![1,000 green triangles meander around at 60fps](screenshots/screenshot-01-1000triangles.png)
 

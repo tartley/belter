@@ -22,7 +22,7 @@ class Window:
         return self.pygwin.context.get_info().get_version()
 
     def on_resize(self, render, width, height):
-        render.set_viewport(width, height)
+        render.on_win_resize(width, height)
         return EVENT_HANDLED
 
     def _get_current_screen_index(self):

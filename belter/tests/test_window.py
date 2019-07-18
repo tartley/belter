@@ -35,7 +35,7 @@ def test_resize():
     actual = window.on_resize(render, 111, 222)
 
     assert actual == EVENT_HANDLED
-    assert render.set_viewport.call_args == call(111, 222)
+    assert render.on_win_resize.call_args == call(111, 222)
 
 def setup_toggle_fullscreen(screens, current):
 
