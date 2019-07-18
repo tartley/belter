@@ -32,7 +32,7 @@ def test_resize():
     window = Window()
     render = Mock()
 
-    actual = window.resize(render, 111, 222)
+    actual = window.on_resize(render, 111, 222)
 
     assert actual == EVENT_HANDLED
     assert render.set_viewport.call_args == call(111, 222)

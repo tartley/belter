@@ -17,7 +17,7 @@ def main():
     render.compile_shader()
 
     window.set_handler('on_draw', render.draw)
-    window.set_handler('on_resize', partial(window.resize, render))
+    window.set_handler('on_resize', partial(window.on_resize, render))
 
     for entity in level.initial_entities():
         world.add_entity(entity)

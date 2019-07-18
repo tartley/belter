@@ -21,7 +21,7 @@ class Window:
         self.pygwin.set_handler('on_key_press', self.on_key_press)
         return self.pygwin.context.get_info().get_version()
 
-    def resize(self, render, width, height):
+    def on_resize(self, render, width, height):
         render.set_viewport(width, height)
         return EVENT_HANDLED
 

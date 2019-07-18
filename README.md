@@ -66,6 +66,7 @@ That's all that works right now.
 * screenshot
 * starfield v1
 * bodies are rendered as an outline, with a black interior
+  https://blog.mapbox.com/drawing-antialiased-lines-with-opengl-8766f34192dc
 * some sort of glow thing like gravitar2?
 * keys to control ship
 * Both
