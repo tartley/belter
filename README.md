@@ -44,6 +44,7 @@ That's all that works right now.
 ### features
 * perspective transform (fixed)
   * Do the perspective transform using a matrix set `on_resize`
+    https://github.com/adamlwgriffiths/Pyrr/blob/master/pyrr/matrix44.py
       window.on_resize calls
       core.on_win_resize sets
       render.win_size
