@@ -25,31 +25,70 @@ def find_value(source, identifier):
         )
     return match.group(1)
 
-def main():
-    version = find_value(
+def get_version():
+    return find_value(
         read_file(os.path.join(HERE, NAME, '__init__.py')),
         '__version__',
     )
 
-    long_description = read_file(os.path.join(HERE, 'README.md'))
+def main():
 
     setuptools.setup(
 
         # Required
         name=NAME,
-        version=version,
+        version=get_version(),
         packages=setuptools.find_packages(
             exclude=['docs', 'tests'],
         ),
 
-        # Optional
+        ## Description
         description='A game, like Asteroids, with 2D vector graphics.',
-        long_description=long_description,
+        long_description=read_file(os.path.join(HERE, 'README.md')),
         long_description_content_type='text/markdown',
         url='https://github.com/tartley/belter',
         author='Jonathan Hartley',
         author_email='tartley@tartley.com',
         keywords='game 2d vector simulation asteroids',
+
+        ## Dependencies
+        python_requires='>=3.7, <4',
+        # See https://packaging.python.org/en/latest/requirements.html
+        install_requires=[
+            'colortuple >=1.0.2, <2',
+            'moderngl >=5.5.2, <6',
+            'pyglet >=1.4.1, <2',
+            'py2d-fixed >=0.1, <2',
+        ],
+        # Install these with eg. `pip install NAME[dev]`
+        # (I can't figure out how to get pip-compile to use this though,
+        # so these go into requirements/dev.in for now)
+        # extras_require={
+        #     'dev': [],
+        # },
+
+        ## Data files
+        # Preferred approach:
+        # package_data={
+        #     'sample': ['package_data.dat'],
+        # },
+        # Fallback for data that has to live outside of packages
+        # data_files=[
+        #     ('my_data', ['data/data_file']),
+        # ],
+
+        # (These can be conditional on extras_require)
+        entry_points={
+            'console_scripts': [
+                'belter = belter.main:main',
+            ],
+            # 'gui_scripts': [],
+        },
+
+        # Keys are rendered as text on PyPI.
+        project_urls={
+            'Github': f'https://github.com/tartley/{NAME}',
+        },
 
         # See https://pypi.org/classifiers/
         classifiers=[
@@ -90,48 +129,6 @@ def main():
 
             'Topic :: Games/Entertainment',
         ],
-
-        ## Dependencies
-        python_requires='>=3.7, <4',
-        # See https://packaging.python.org/en/latest/requirements.html
-        install_requires=[
-            'colortuple >=1.0.2, <2',
-            'moderngl >=5.5.2, <6',
-            'pyglet >=1.4.1, <2',
-            'py2d-fixed >=0.1, <2',
-        ],
-        # Install these with eg. `pip install NAME[dev]`
-        # (I can't figure out how to get pip-compile to use this though,
-        # so these go into requirements/dev.in for now)
-        # extras_require={
-        #     'dev': [],
-        # },
-
-        ## Data files
-        # Preferred approach:
-        # package_data={
-        #     'sample': ['package_data.dat'],
-        # },
-        # Fallback for data that has to live outside of packages
-        # data_files=[
-        #     ('my_data', ['data/data_file']),
-        # ],
-
-        # (These can be conditional on extras_require)
-        entry_points={
-            'console_scripts': [
-                'belter = belter.main:main',
-            ],
-            # 'gui_scripts': [],
-        },
-
-        # Keys are rendered as text on PyPI.
-        project_urls={
-            'Bug Reports': 'https://github.com/pypa/sampleproject/issues',
-            'Funding': 'https://donate.pypi.org',
-            'Say Thanks!': 'http://saythanks.io/to/example',
-            'Source': 'https://github.com/pypa/sampleproject/',
-        },
     )
 
 if __name__ in ['__main__', 'builtins']:
