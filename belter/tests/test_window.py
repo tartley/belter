@@ -22,7 +22,7 @@ def test_create(mypyglet):
             config=mypyglet.gl.Config(),
             fullscreen=True,
             resizable=True,
-            vsync=False
+            vsync=True,
         )
     pygwin = mypyglet.window.Window()
     assert pygwin.set_handler.call_args == \

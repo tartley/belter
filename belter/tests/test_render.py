@@ -34,7 +34,6 @@ def test_on_win_resize():
     render = Render(World())
     render.on_win_resize(11, 222)
     assert render.ctx.viewport == (0, 0, 11, 222)
-    assert render.ortho_matrix = 0 # TODO
 
 @patch('belter.render.moderngl')
 def test_compile_shader(my_moderngl):
