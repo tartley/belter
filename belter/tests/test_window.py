@@ -94,14 +94,6 @@ def test_on_key_press_unrecognized():
     actual = window.on_key_press("unrecognized", "modifiers")
     assert actual is None
 
-def test_clear():
-    window = Window()
-    window.pygwin = Mock()
-
-    window.clear()
-
-    assert window.pygwin.clear.call_args == call()
-
 def test_set_handler():
     window = Window()
     window.pygwin = Mock()

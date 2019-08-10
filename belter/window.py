@@ -50,9 +50,6 @@ class Window:
             self.keys[symbol]()
             return EVENT_HANDLED
 
-    def clear(self):
-        self.pygwin.clear()
-
     def set_handler(self, event_name, handler=None):
         self.pygwin.set_handler(event_name, handler)
 
