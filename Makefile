@@ -13,31 +13,39 @@ virtualenv:
 		${python} -m pip install -U pip ; \
 	fi
 
+update-deps:
+	# create requirements/*.txt
+	pip-compile -q --upgrade --output-file=requirements/main.txt setup.py
+	pip-compile -q --upgrade --output-file=requirements/dev.txt setup.py requirements/dev.in
+
 download:
 	# Download packages to local cache.
-	yes w | ${pip} download --destination-directory ${packages} -r requirements/dev.in
-	# Convert into wheels if required.
+	yes w | ${pip} download \
+		--destination-directory ${packages} \
+		-r requirements/dev.txt
+
+wheel:
+	# Convert downloaded packages into wheels
 	${python} -m pip install -U wheel
-	${pip} wheel --wheel-dir ${packages} -r requirements/dev.in
-
-upgrade:
-	# Install updated wheels from local cache.
-	${python} -m pip install --no-index --find-links=${packages} -r requirements/dev.in
-
-freeze:
-	# Generate updated requirements/dev.txt file.
-	chmod u+w requirements/dev.txt
-	/bin/echo -e "# Generated file do not edit, see 'Makefile:freeze'\n" > requirements/dev.txt
-	${pip} freeze >> requirements/dev.txt
-	chmod a-w requirements/dev.txt
+	${pip} wheel \
+		--wheel-dir ${packages} \
+		-r requirements/dev.txt
 
 install:
-	# Install pinned wheels from local cache.
-	${python} -m pip install --no-index --find-links=${packages} -r requirements/dev.txt
+	# Install (and uninstall) product wheels from local cache.
+	pip-sync \
+		--no-index \
+		--find-links=${packages} \
+		requirements/main.txt
 
-setup: virtualenv freeze download install
+install-dev:
+	# Install (and uninstall) product and dev wheels from local cache.
+	pip-sync \
+		--no-index \
+		--find-links=${packages} \
+		requirements/dev.txt
 
-repopulate: virtualenv install
+update: update-deps download wheel install-dev
 
 lint:
 	${python} -m flake8 belter
@@ -49,5 +57,5 @@ test: lint unit
 
 .SILENT:
 
-.PHONY: virtualenv freeze download install setup repopulate lint unit test
+.PHONY: virtualenv update-deps download wheel install install-dev update lint unit test
 

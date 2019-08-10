@@ -100,14 +100,12 @@ def main():
             'pyglet >=1.4.1, <2',
             'py2d-fixed >=0.1, <2',
         ],
-        # Install these with `pip install project[dev]`
-        extras_require={
-            'dev': [
-                'flake8 >=3.7.8, <4',
-                'flake8-colors >=0.1.6, <2',
-                'pytest >=5.0.1, <6',
-            ],
-        },
+        # Install these with eg. `pip install NAME[dev]`
+        # (I can't figure out how to get pip-compile to use this though,
+        # so these go into requirements/dev.in for now)
+        # extras_require={
+        #     'dev': [],
+        # },
 
         ## Data files
         # Preferred approach:
@@ -136,6 +134,6 @@ def main():
         },
     )
 
-if __name__ == '__main__':
+if __name__ in ['__main__', 'builtins']:
     main()
 
