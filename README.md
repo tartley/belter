@@ -41,13 +41,15 @@ That's all that works right now.
 
 ## TODO
 
-### features
-* perspective transform (fixed)
-  * Do the perspective transform using a matrix set `on_resize`
+* strict architecture, using:
+  * moderngl-window
+  * latest moderngl
+  * latest pyglet. Do we need 'shaders' branch, or is that released now?
+* ortho transform, on-resize:
     https://github.com/adamlwgriffiths/Pyrr/blob/master/pyrr/matrix44.py
       window.on_resize calls
-      core.on_win_resize sets
-      render.win_size
+      core.win_resize sets
+      render.calc_proj_matrix
           which calcs a proj matrix
               use some opengl 'ortho' call to generate?
                 check out moderngl examples
@@ -59,59 +61,90 @@ That's all that works right now.
   * requires a camera model object
   * remove existing 'zoom'
   * redo using a view matrix
-* consider replacing entity position/orientation with a model matrix
-* new pyglet and pyopengl are out, now compatible with each other
-* shapes are also added to pymunk
+* draw shapes using gl-lines
+* shapes added to pymunk
 * shapes need offsetting to their center of mass
-* shapes may consist of polygons, which are tessellated into triangles
 * screenshot
-* starfield v1
+* keys to control ship
+* starfield v1:
+  * gl-points?
+  * point sprites?
+  * instanced quads?
 * bodies are rendered as an outline, with a black interior
   https://blog.mapbox.com/drawing-antialiased-lines-with-opengl-8766f34192dc
 * some sort of glow thing like gravitar2?
-* keys to control ship
+
+### deployment
+* Produce a linux executable:
+  * a snap!
+  * generate requirements/main.txt, using a fresh virtualenv
+  * Install our code using `pip install --no-deps .`
+* Produce user docs
+* Ask someone to install & run
+  Can *I* do this in an LXC?
+* e2e test which builds the executable, runs with --selftest
+* copy stuff back into project template
+
+### performance
+* vsync doesn't work. Why not? love2d does it.
+* measure performance in update / draw / etc
+* interleaved arrays
+* `Render.get_packed_vertices`: struct.pack on asterisked iterable
+  must surely be slow.
+  * pad buffers to 4-byte alignment. (eg 4th color byte)
+  * try array module?
+  * try ctypes slice assignment from gloopy?
+  * try the answers from this page:
+    https://stackoverflow.com/questions/9940859/fastest-way-to-pack-a-list-of-floats-into-bytes-in-python/55081769#55081769
+* consider replacing entity position/orientation with a model matrix
+  -ve updating and sending an array of them each frame takes longer
+  +ve but maybe shaders are faster due to built-in matrix mult operation?
+  probably have to try both ways :-(
+* waiting at end of Render.draw is probably suboptimal.
+  Can we wait before rendering the next frame, instead?
+  I tried it quickly, seems to actually reduce framerate by 10fps. Why?
+* pre-render all objects to a bitmap, draw that.
+
+### later, if at all
 * Both
   * `ctx.vertex_array` `index_element_size` arg and
   * indices struct.pack 1st arg
   should grow as number of indices exceeds 255, 65535.
   Maybe `get_vao` should decide on element size, and pass it in?
   Or, better, they each call an `element_size_int` and `element_size_char`?
-* A large asteroid? Smaller ones orbit it?
-### performance
-* performance test
-  * we seem to get periodic slowdowns, what's that about?
-* `Render.get_packed_vertices`: struct.pack on asterisked iterable must be slow.
-  * try array module?
-  * try ctypes slice assignment from gloopy?
-  * try the answers from this page:
-    https://stackoverflow.com/questions/9940859/fastest-way-to-pack-a-list-of-floats-into-bytes-in-python/55081769#55081769
-  * pad buffers to 4-byte alignment. (eg 4th color byte)
-* single interleaved buffer?
-  Was faster in 2013, for cache reasons.
-  Comment suggested it no longer matters since 2016.
-* waiting at end of Render.draw is probably suboptimal.
-  Can we wait before rendering the next frame, instead?
-  I tried it quickly, seems to actually reduce framerate by 10fps. Why?
-* pre-render all objects to a bitmap, draw that.
-### design
-* Probably already needs a total redesign from a 'hexagonal' viewpoint.
-  What are our business logic units?
-* render should store vao keyed on id(shape), not id(entity),
-  then multiple entities could use same vao,
-  either simultaneously or sequentially.
-### deployment
-* Produce a linux executable:
-  * generate requirements/main.txt, using a fresh virtualenv
-  * Install our code using `pip install --no-deps .`
-* make a github release
-* Ask someone to download and double click
-  Can I do this in an LXC?
-* e2e test which builds the executable, runs with --selftest
-* copy stuff back into project template
+  Sounds like methods on a tiny object, of which there are only 2 instances.
 
 # Discussion
 
-### Goals
+## Goals
+
+* shoot asteroids?
+  Mechanics need work, but this could be simplest playable game.
+
+## Bonus feature ideas
+
+* collect asteroids?
+  * with a grapple? or by land-and-gimbal?
+  * Where to take them? Into fab intake?
+  * break up larger ones by shooting?
+  * search for those containig high-value ore? (by color? by sound?)
+
+* rescue people?
+  requires landing
+
+* refueling
+  * land on a pad?
+  * land next to fuel?
+  * land ON fuel?
+
+* large asteroid (singular)
+  * has gravity?
+  * tunnels?
+
+* enemies?
+* friendlies / bystanders?
+
+## Details
 
 Put high value asteroids into the fab intake?
 * how to discern high value?
@@ -130,7 +163,9 @@ Put high value asteroids into the fab intake?
       Better, I think.
       Levels could then have varying amounts of high value asteroids.
 
-### Landing / Docking
+Why ?
+* refuel?
+* rescue!?
 
 Conventional landing on the tail-fins:
 
@@ -222,4 +257,7 @@ So, it sounds like a possible but unlikely future performance enhancement.
 Hence, ignore it for now.
 Conclusion: Use interleaved arrays, unless they prove awkward/slow to
 create.
+* single interleaved buffer?
+  Was faster in 2013, for cache reasons.
+  Comment suggested it no longer matters since 2016.
 
