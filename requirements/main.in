@@ -1,5 +1,5 @@
 colortuple~=1.0.2
-moderngl~=5.5.0
-pyglet~=1.4.0b1
+moderngl~=5.5.2
+pyglet~=1.4.1
 py2d-fixed~=0.1
 

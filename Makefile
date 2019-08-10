@@ -2,7 +2,7 @@ ve=~/.virtualenvs/belter
 bin=${ve}/bin
 python=${bin}/python
 pip=${bin}/pip
-packages=~/.cache/pip/packages
+packages=${HOME}/.cache/pip/packages
 
 virtualenv:
 	if [ -n "${VIRTUAL_ENV}" ]; then \
