@@ -43,10 +43,9 @@ lint:
 	${python} -m flake8 belter
 
 unit:
-	${python} -m pytest -q --color=yes -W ignore::DeprecationWarning
+	${python} -m pytest -q --color=yes
 
-test:
-	./test
+test: lint unit
 
 .SILENT:
 
