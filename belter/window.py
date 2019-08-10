@@ -10,7 +10,7 @@ class Window:
     def __init__(self):
         self.pygwin = None
         self.keys = {
-            key.F10: self.toggle_fullscreen,
+            key.F11: self.toggle_fullscreen,
         }
 
     def create(self, title):

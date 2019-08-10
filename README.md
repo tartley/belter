@@ -35,14 +35,15 @@ Then run with:
 
 ## Instructions
 
-F10 to toggle windowed/fullscreen, and cycle through available monitors.
+F11 to toggle windowed/fullscreen, and cycle through available monitors.
 
 That's all that works right now.
 
 ## TODO
 
 * strict architecture, using:
-  * moderngl-window
+  N moderngl-window (What for? I don't want to learn an alternate generic
+    window API just to load resources)
   * latest moderngl
   * latest pyglet. Do we need 'shaders' branch, or is that released now?
 * ortho transform, on-resize:
