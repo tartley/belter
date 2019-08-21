@@ -8,4 +8,4 @@ colortuple==1.0.2
 future==0.17.1            # via pyglet
 moderngl==5.5.2
 py2d-fixed==0.1
-pyglet==1.4.1
+pyglet==1.4.2

@@ -1,6 +1,6 @@
 # Belter
 
-A videogame with 2D vector graphics, reminiscent of Asteroids.
+A variant of the 2D vector-graphic videogame Asteroids.
 
 ## Status
 
@@ -71,9 +71,19 @@ That's all that works right now.
   * gl-points?
   * point sprites?
   * instanced quads?
+* Camera follows ship
 * bodies are rendered as an outline, with a black interior
   https://blog.mapbox.com/drawing-antialiased-lines-with-opengl-8766f34192dc
+  See the geometry shader example below.
 * some sort of glow thing like gravitar2?
+  example geometry shader creating billboards from gl-points:
+  https://github.com/Contraz/demosys-py/blob/f46d8032515e3faa60e17fd2a793cff17700719c/examples/feedback/resources/programs/feedback/billboards.glsl#L15-L56
+  einarf on moderngl discord:
+    Note that the in variables in the geometry shader must be arrays (if you
+    are for example forwarding a color value from an attribute) because its
+    receiving a primitive. In the example I linked the primitive is point so
+    in vec3 vert_color[1] works. With lines you need in vec3 vert_color[2].
+    and gl_in[0] and gl_in[1] would be A and B for the line
 
 ### deployment
 * Produce a linux executable:
@@ -106,16 +116,17 @@ That's all that works right now.
   I tried it quickly, seems to actually reduce framerate by 10fps. Why?
 * pre-render all objects to a bitmap, draw that.
 
-### later, if at all
-* Both
-  * `ctx.vertex_array` `index_element_size` arg and
-  * indices struct.pack 1st arg
-  should grow as number of indices exceeds 255, 65535.
-  Maybe `get_vao` should decide on element size, and pass it in?
-  Or, better, they each call an `element_size_int` and `element_size_char`?
-  Sounds like methods on a tiny object, of which there are only 2 instances.
+
+
+# Thoughts: rationalize
+
+
+
+
 
 # Discussion
+
+Each level is a solar system lagrange point.
 
 ## Goals
 

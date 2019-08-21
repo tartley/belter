@@ -9,5 +9,5 @@ set -e
 
 ve="$HOME/.virtualenvs/belter"
 python="${ve}/bin/python"
-${python} $@ -c "from belter.main import main ; main()"
+${python} -O -c "from belter.main import main ; main()"
 
